@@ -14,4 +14,6 @@ return [
     'email_already_used' => 'This email is already in use',
     'passwords_do_not_match' => 'Passwords do not match',
     'invalid_credentials' => 'Invalid credentials',
+    'admin_login' => 'Admin Login',
+    'user_login' => 'Login as User',
 ];

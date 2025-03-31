@@ -12,6 +12,10 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/logout', fn () => auth()->logout());
 });
 
+Route::prefix('admin')->group(function () {
+    Route::post('/login', [\App\Http\Controllers\Admin\Auth\LoginController::class, 'login']);
+});
+
 Route::options('{any}', function () {
     return response()->json([], 204);
 })->where('any', '.*');

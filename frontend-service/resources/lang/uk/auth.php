@@ -13,4 +13,6 @@ return [
     'email_already_used' => 'Ця електронна пошта вже використовується',
     'passwords_do_not_match' => 'Паролі не співпадають',
     'invalid_credentials' => 'Неправильні дані для входу',
+    'admin_login' => 'Вхід адміністратора',
+    'user_login' => 'Увійти як користувач',
 ];

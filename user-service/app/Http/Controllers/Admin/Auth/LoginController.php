@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Admin\Auth;
 
 use App\Enums\ErrorCode;
 use App\Http\Controllers\Controller;
@@ -14,19 +14,18 @@ class LoginController extends Controller
     {
         $credentials = $request->only(['email', 'password']);
 
-        if (!$token = auth()->attempt($credentials)) {
+        if (!$token = auth('admin')->attempt($credentials)) {
             return response()->json([
                 'error_code' => ErrorCode::Unauthorized->value,
-                'message' => 'Invalid credentials',
+                'message' => 'Invalid admin credentials',
             ], 401);
         }
 
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60,
-            'user' => auth()->user(),
+            'expires_in' => auth('admin')->factory()->getTTL() * 60,
+            'admin' => auth('admin')->user(),
         ], 200);
     }
-
 }

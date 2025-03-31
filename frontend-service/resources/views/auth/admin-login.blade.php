@@ -4,9 +4,9 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card p-4">
-                <h2 class="text-center mb-4 text-success">@lang('auth.login')</h2>
+                <h2 class="text-center mb-4 text-success">@lang('auth.admin_login')</h2>
 
-                <form id="login-form">
+                <form id="admin-login-form">
                     <div class="mb-3">
                         <label for="email" class="form-label">@lang('auth.email')</label>
                         <input name="email" type="email" class="form-control" required>
@@ -21,7 +21,7 @@
                 </form>
 
                 <div class="text-center mt-3">
-                    <a href="{{ route('register') }}" class="btn btn-link text-orange">@lang('auth.no_account')</a>
+                    <a href="{{ route('login') }}" class="btn btn-link text-orange">@lang('auth.user_login')</a>
                 </div>
             </div>
         </div>
@@ -31,7 +31,7 @@
 @section('scripts')
     <script src="{{ asset('js/constants.js') }}"></script>
     <script>
-        document.getElementById('login-form').addEventListener('submit', async function(e) {
+        document.getElementById('admin-login-form').addEventListener('submit', async function(e) {
             e.preventDefault();
 
             const form = e.target;
@@ -42,7 +42,7 @@
             };
 
             try {
-                const response = await fetch(`${AppConfig.apiUrl}/users/login`, {
+                const response = await fetch(`${AppConfig.apiUrl}/users/admin/login`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -70,6 +70,7 @@
                                 text: "@lang('auth.invalid_credentials')"
                             });
                             break;
+
                         case UserErrorCode.UnknownError:
                         default:
                             Swal.fire({
@@ -82,9 +83,10 @@
                     return;
                 }
 
-                // Success: store token and optionally redirect
-                localStorage.setItem('access_token', result.access_token);
+                localStorage.setItem('admin_access_token', result.access_token);
 
+                // Redirect or dashboard logic here
+                // window.location.href = '/admin/dashboard';
 
             } catch (error) {
                 Swal.fire({
