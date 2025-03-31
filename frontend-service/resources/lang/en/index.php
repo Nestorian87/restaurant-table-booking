@@ -1,0 +1,25 @@
+<?php
+
+return [
+    'title' => 'Effortless Restaurant Reservations',
+    'subtitle' => 'Book your table in seconds. Anytime. Anywhere.',
+    'get_started' => 'Get Started',
+    'login' => 'Login',
+    'features_title' => 'Why Choose Us',
+    'feature_1' => 'Easy Reservations',
+    'feature_1_desc' => 'Book a table in just a few clicks.',
+    'feature_2' => 'Instant Confirmations',
+    'feature_2_desc' => 'Get immediate booking feedback.',
+    'feature_3' => 'Mobile Access',
+    'feature_3_desc' => 'Works perfectly on your phone or tablet.',
+    'feature_4' => 'Fast Registration',
+    'feature_4_desc' => 'Sign up and log in with ease.',
+    'feature_5' => 'Booking History',
+    'feature_5_desc' => 'Track your past reservations anytime.',
+    'stat_title_1' => 'Reliable Hosting',
+    'stat_title_2' => 'Early Access Users',
+    'stat_title_3' => 'Human Support',
+    'stat_1' => 'Running smoothly on our own infrastructure.',
+    'stat_2' => 'Beta users are already testing the service.',
+    'stat_3' => 'We respond quickly and personally.',
+];
