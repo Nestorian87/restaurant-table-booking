@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Admin\Auth;
 
-use App\Enums\ErrorCode;
+use App\Enums\UserErrorCode;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
@@ -16,7 +15,7 @@ class LoginController extends Controller
 
         if (!$token = auth('admin')->attempt($credentials)) {
             return response()->json([
-                'error_code' => ErrorCode::Unauthorized->value,
+                'error_code' => UserErrorCode::Unauthorized->value,
                 'message' => 'Invalid admin credentials',
             ], 401);
         }

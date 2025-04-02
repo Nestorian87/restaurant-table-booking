@@ -1,11 +1,14 @@
 <?php
 
+use App\Livewire\Admin\AdminDashboardPage;
+use App\Livewire\Admin\RestaurantCreatePage;
+use App\Livewire\Admin\RestaurantEditPage;
+use App\Livewire\Admin\RestaurantForm;
+use App\Livewire\Auth\AdminLoginPage;
+use App\Livewire\Auth\LoginPage;
+use App\Livewire\Auth\RegisterPage;
+use App\Livewire\IndexPage;
 use Illuminate\Support\Facades\Route;
-
-Route::view('/', 'index');
-
-Route::view('/login', 'auth.login')->name('login');
-Route::view('/register', 'auth.register')->name('register');
 
 Route::get('/lang/{locale}', function ($locale) {
     if (!in_array($locale, ['en', 'uk'])) {
@@ -17,14 +20,16 @@ Route::get('/lang/{locale}', function ($locale) {
     return redirect()->back();
 })->name('lang.switch');
 
+Route::get('/', IndexPage::class)->name('home');
+Route::get('/login', LoginPage::class)->name('login');
+Route::get('/register', RegisterPage::class)->name('register');
+
 Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/login', AdminLoginPage::class)->name('login');
+    Route::get('/dashboard', AdminDashboardPage::class)->name('dashboard');
 
-    Route::middleware('guest')->group(function () {
-        Route::view('/login', 'auth.admin-login')->name('login');
+    Route::prefix('restaurants')->name('restaurants.')->group(function () {
+        Route::get('/create', RestaurantCreatePage::class)->name('create');
+        Route::get('/{restaurantId}/edit', RestaurantEditPage::class)->name('edit');
     });
-
-//    Route::middleware('auth:admin')->group(function () {
-//        Route::view('/dashboard', 'admin.dashboard')->name('dashboard');
-//    });
 });
-

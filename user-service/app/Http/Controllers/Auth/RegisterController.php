@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Enums\ErrorCode;
+use App\Enums\UserErrorCode;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Database\QueryException;
@@ -25,13 +25,13 @@ class RegisterController extends Controller
             $errors = $e->errors();
             if (isset($errors['email']) && str_contains(implode(' ', $errors['email']), 'taken')) {
                 return response()->json([
-                    'error_code' => ErrorCode::UserAlreadyExists->value,
+                    'error_code' => UserErrorCode::UserAlreadyExists->value,
                     'message' => 'Email already exists.',
                 ], 409);
             }
 
             return response()->json([
-                'error_code' => ErrorCode::ValidationFailed->value,
+                'error_code' => UserErrorCode::ValidationFailed->value,
                 'message' => 'Validation failed',
                 'errors' => $errors,
             ], 422);
@@ -46,7 +46,7 @@ class RegisterController extends Controller
             ]);
         } catch (QueryException $e) {
             return response()->json([
-                'error_code' => ErrorCode::UserAlreadyExists->value,
+                'error_code' => UserErrorCode::UserAlreadyExists->value,
                 'message' => 'Email already exists.',
             ], 409);
         }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Enums\ErrorCode;
+use App\Enums\UserErrorCode;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -16,7 +16,7 @@ class LoginController extends Controller
 
         if (!$token = auth()->attempt($credentials)) {
             return response()->json([
-                'error_code' => ErrorCode::Unauthorized->value,
+                'error_code' => UserErrorCode::Unauthorized->value,
                 'message' => 'Invalid credentials',
             ], 401);
         }

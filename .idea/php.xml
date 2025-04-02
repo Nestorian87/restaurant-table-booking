@@ -406,6 +406,7 @@
       <path value="$PROJECT_DIR$/frontend-service/vendor/symfony/var-dumper" />
       <path value="$PROJECT_DIR$/frontend-service/vendor/symfony/mailer" />
       <path value="$PROJECT_DIR$/frontend-service/vendor/symfony/polyfill-intl-idn" />
+      <path value="$PROJECT_DIR$/frontend-service/vendor/livewire/livewire" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.2" />
@@ -414,8 +415,7 @@
   </component>
   <component name="PhpUnit">
     <phpunit_settings>
-      <PhpUnitSettings configuration_file_path="$PROJECT_DIR$/user-service-old/phpunit.xml" custom_loader_path="$PROJECT_DIR$/user-service-old/vendor/autoload.php" use_configuration_file="true" />
-      <PhpUnitSettings configuration_file_path="$PROJECT_DIR$/phpunit.xml" custom_loader_path="$PROJECT_DIR$/vendor/autoload.php" use_configuration_file="true" />
+      <PhpUnitSettings configuration_file_path="$PROJECT_DIR$/user-service/phpunit.xml" custom_loader_path="$PROJECT_DIR$/user-service/vendor/autoload.php" use_configuration_file="true" />
       <PhpUnitSettings configuration_file_path="$PROJECT_DIR$/frontend-service/phpunit.xml" custom_loader_path="$PROJECT_DIR$/frontend-service/vendor/autoload.php" use_configuration_file="true" />
     </phpunit_settings>
   </component>

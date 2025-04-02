@@ -14,6 +14,9 @@ Route::middleware('auth:api')->group(function () {
 
 Route::prefix('admin')->group(function () {
     Route::post('/login', [\App\Http\Controllers\Admin\Auth\LoginController::class, 'login']);
+    Route::middleware('auth:admin')->get('/me', function () {
+        return response()->json(auth()->user());
+    });
 });
 
 Route::options('{any}', function () {
