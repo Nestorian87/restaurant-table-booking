@@ -12,7 +12,7 @@ class AdminRestaurantController extends Controller
     public function index(Request $request)
     {
         $perPage = $request->get('per_page', 10);
-        $restaurants = Restaurant::with('workingHours', 'photos')->paginate($perPage);
+        $restaurants = Restaurant::with('workingHours', 'photos', 'tableTypes')->paginate($perPage);
 
         return RestaurantResource::collection($restaurants);
     }
@@ -40,7 +40,7 @@ class AdminRestaurantController extends Controller
 
     public function show(Restaurant $restaurant)
     {
-        return $restaurant->load('workingHours', 'photos');
+        return $restaurant->load('workingHours', 'photos', 'tableTypes');
     }
 
     public function update(Request $request, Restaurant $restaurant)
