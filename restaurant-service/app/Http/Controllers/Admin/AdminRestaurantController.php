@@ -7,12 +7,12 @@ use App\Http\Resources\RestaurantResource;
 use App\Models\Restaurant;
 use Illuminate\Http\Request;
 
-class RestaurantController extends Controller
+class AdminRestaurantController extends Controller
 {
     public function index(Request $request)
     {
         $perPage = $request->get('per_page', 10);
-        $restaurants = Restaurant::with('workingHours')->paginate($perPage);
+        $restaurants = Restaurant::with('workingHours', 'photos')->paginate($perPage);
 
         return RestaurantResource::collection($restaurants);
     }
@@ -40,7 +40,7 @@ class RestaurantController extends Controller
 
     public function show(Restaurant $restaurant)
     {
-        return $restaurant->load('workingHours');
+        return $restaurant->load('workingHours', 'photos');
     }
 
     public function update(Request $request, Restaurant $restaurant)

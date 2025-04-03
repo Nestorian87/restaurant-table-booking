@@ -123,4 +123,6 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'gateway_storage_url' => env('GATEWAY_STORAGE_URL', 'http://localhost'),
+
 ];
