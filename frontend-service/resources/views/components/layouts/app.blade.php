@@ -95,6 +95,11 @@
     });
 </script>
 @livewireScripts
+<script>
+    Livewire.on('spa:navigate', (data) => {
+        window.location.href = data[0].url;
+    });
+</script>
 </body>
 </html>
 

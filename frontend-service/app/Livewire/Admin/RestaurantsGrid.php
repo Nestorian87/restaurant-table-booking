@@ -11,6 +11,9 @@ use Livewire\Component;
 class RestaurantsGrid  extends BaseAdminComponent
 {
     public array $restaurants = [];
+    public int $page = 1;
+    public bool $hasMorePages = true;
+
     protected RestaurantAdminRepository $repository;
 
     public function boot(RestaurantAdminRepository $repository)
@@ -20,19 +23,27 @@ class RestaurantsGrid  extends BaseAdminComponent
 
     public function mount()
     {
-        $this->loadRestaurants();
+        $this->loadMore();
     }
 
-    public function loadRestaurants(): void
+
+    public function loadMore(): void
     {
-        $this->handleApiResult(
-            $this->repository->all(),
-            onSuccess: fn($data) => $this->restaurants = $data,
-            onFailure: fn() => $this->dispatch('swal:show', [
-                'type' => 'error',
-                'title' => __('common.error'),
-                'text' => __('common.something_went_wrong'),
-            ])
+        $response = $this->repository->all($this->page);
+
+        $this->handleApiResult($response,
+            onSuccess: function ($data) {
+                $this->restaurants = array_merge($this->restaurants, $data['data'] ?? []);
+                $this->hasMorePages = $data['meta']['current_page'] < $data['meta']['last_page'];
+                $this->page++;
+            },
+            onFailure: function () {
+                $this->dispatch('swal:show', [
+                    'type' => 'error',
+                    'title' => __('common.error'),
+                    'text' => __('common.something_went_wrong'),
+                ]);
+            }
         );
     }
 

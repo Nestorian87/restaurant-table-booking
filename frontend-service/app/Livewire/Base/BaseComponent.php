@@ -13,8 +13,10 @@ abstract class BaseComponent extends Component
 
     protected function handleApiResult(ApiResult $result, ?callable $onSuccess = null, ?callable $onFailure = null)
     {
+        error_log('Handle API Result: ' . json_encode($result));
         if ($result->status === 401) {
             Cookie::queue(Cookie::forget($this->getTokenCookieName()));
+            error_log('Token cookie cleared: ' . $this->getTokenCookieName());
 
             $this->dispatch('spa:navigate', [
                 'url' => route($this->getLoginRoute())

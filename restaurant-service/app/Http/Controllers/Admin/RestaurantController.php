@@ -3,14 +3,18 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\RestaurantResource;
 use App\Models\Restaurant;
 use Illuminate\Http\Request;
 
 class RestaurantController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return Restaurant::with('workingHours')->get();
+        $perPage = $request->get('per_page', 10);
+        $restaurants = Restaurant::with('workingHours')->paginate($perPage);
+
+        return RestaurantResource::collection($restaurants);
     }
 
     public function store(Request $request)

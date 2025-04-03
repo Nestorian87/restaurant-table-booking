@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'api',
+        'guard' => 'noop',
         'passwords' => 'users',
     ],
 
@@ -36,9 +36,9 @@ return [
     */
 
     'guards' => [
-        'admin' => [
-            'driver' => 'jwt',
-            'provider' => 'admin-provider',
+        'noop' => [
+            'driver' => 'token',
+            'provider' => 'void',
         ],
     ],
 
@@ -60,9 +60,9 @@ return [
     */
 
     'providers' => [
-        'admin-provider' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Admin::class,
+        'void' => [
+            'driver' => 'database',
+            'table' => 'non_existing_table',
         ],
     ],
 

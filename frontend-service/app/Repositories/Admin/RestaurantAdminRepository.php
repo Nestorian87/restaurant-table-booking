@@ -11,10 +11,11 @@ class RestaurantAdminRepository extends BaseAdminRepository
         return $this->request("/restaurants/admin/restaurants/{$id}");
     }
 
-    public function all(): ApiResult
+    public function all(int $page = 1): ApiResult
     {
-        return $this->request('/restaurants/admin/restaurants');
+        return $this->request("/restaurants/admin/restaurants?page=$page&per_page=15");
     }
+
 
     public function create(array $data): ApiResult
     {

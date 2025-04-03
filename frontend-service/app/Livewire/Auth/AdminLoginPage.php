@@ -2,27 +2,38 @@
 
 namespace App\Livewire\Auth;
 
+use App\Dto\ApiResult;
 use App\Enums\UserErrorCode;
+use App\Livewire\Base\BaseAdminComponent;
+use App\Repositories\Admin\AuthAdminRepository;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 
-class AdminLoginPage extends Component
+class AdminLoginPage extends BaseAdminComponent
 {
     public string $email = '';
     public string $password = '';
 
+    protected AuthAdminRepository $repository;
+
+    public function boot(AuthAdminRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
     public function login()
     {
-        $response = Http::acceptJson()->post(config('services.api_base_url') . '/users/admin/login', [
-            'email' => $this->email,
-            'password' => $this->password,
-        ]);
+        $result = $this->repository->login($this->email, $this->password);
 
-        $data = $response->json();
+        $this->handleApiResult($result, onSuccess: function ($data) {
+            Cookie::queue('admin_token', $data['access_token'], 60 * 24);
 
-        if ($response->failed()) {
-            $error = UserErrorCode::tryFrom($data['error_code'] ?? null);
+            $this->dispatch('spa:navigate', [
+                'url' => route('admin.dashboard')
+            ]);
+        }, onFailure: function (ApiResult $result) {
+            $error = UserErrorCode::tryFrom($result->errorCode);
 
             $text = match ($error) {
                 UserErrorCode::ValidationFailed => __('common.validation_error'),
@@ -35,14 +46,9 @@ class AdminLoginPage extends Component
                 'title' => __('common.error'),
                 'text' => $text,
             ]);
-            return;
-        }
+        });
 
-        Cookie::queue('admin_token', $data['access_token'], 60 * 24);
 
-        $this->dispatch('spa:navigate', [
-            'url' => route('admin.dashboard')
-        ]);
     }
 
     public function render()
