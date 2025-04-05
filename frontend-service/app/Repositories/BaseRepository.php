@@ -17,24 +17,55 @@ abstract class BaseRepository
 
     abstract protected function getToken(): ?string;
 
-    protected function request(string $url, string $method = 'GET', array $data = []): ApiResult
+    protected function request(
+        string $url,
+        string $method = 'GET',
+        array $data = [],
+        bool $isMultipart = false
+    ): ApiResult
     {
         $token = $this->getToken();
         $fullUrl = $this->baseUrl . $url;
-        $response = Http::withToken($token)
+
+        $request = Http::withToken($token)
             ->acceptJson()
-            ->withHeaders([
-                'Accept' => 'application/json',
-                'Content-Type' => 'application/json',
-            ])
-            ->withOptions(['http_errors' => false])
-            ->send($method, $fullUrl, ['json' => $data]);
+            ->withOptions(['http_errors' => false]);
+
+        if ($isMultipart) {
+            $request = $request->asMultipart();
+
+            foreach ($data as $field) {
+                if (
+                    isset($field['name'], $field['contents'], $field['filename'])
+                ) {
+                    $request = $request->attach(
+                        $field['name'],
+                        $field['contents'],
+                        $field['filename']
+                    );
+                }
+            }
+            $httpMethod = strtolower($method);
+            $response = $request->{$httpMethod}($fullUrl);
+        }
+        else {
+            $request = $request->withHeaders(['Content-Type' => 'application/json']);
+            $response = $request->send($method, $fullUrl, ['json' => $data]);
+        }
 
         if (app()->environment('local') || config('app.debug')) {
             error_log("API Request:");
             error_log("URL: $method $fullUrl");
             error_log("Token: $token");
-            error_log("Payload: " . json_encode($data));
+
+            if ($isMultipart) {
+                foreach ($data as $f) {
+                    error_log("File: {$f['name']} => {$f['filename']}");
+                }
+            } else {
+                error_log("Payload: " . json_encode($data));
+            }
+
             error_log("API Response:");
             error_log("Status: " . $response->status());
             error_log("Body: " . $response->body());

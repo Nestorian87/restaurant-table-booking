@@ -4,10 +4,11 @@
     'type' => 'button',
     'size' => 'md',
     'shadow' => false,
+    'padding' => 'px-5'
 ])
 
 @php
-    $class = "btn btn-success btn-{$size} px-5";
+    $class = "btn btn-success btn-{$size} {$padding}";
     if ($shadow) $class .= ' shadow';
     if ($attributes->get('class')) $class .= ' ' . $attributes->get('class');
 @endphp

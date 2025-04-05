@@ -13,7 +13,7 @@ class RestaurantPhotoController extends Controller
     public function store(Request $request, Restaurant $restaurant)
     {
         $request->validate([
-            'photos.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'photos.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:10000',
         ]);
 
         $uploaded = [];

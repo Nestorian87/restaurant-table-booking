@@ -8,7 +8,7 @@
 ])
 
 @php
-    $class = "btn btn-orange btn-{$size} {$padding}";
+    $class = "btn btn-danger btn-{$size} {$padding}";
     if ($shadow) $class .= ' shadow';
     if ($attributes->get('class')) $class .= ' ' . $attributes->get('class');
 @endphp

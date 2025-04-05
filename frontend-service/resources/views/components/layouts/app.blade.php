@@ -6,6 +6,7 @@
     <title>Restaurant Booking</title>
     @livewireStyles
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
         body {
             background: linear-gradient(to right, #e8f5e9, #fffde7);
@@ -75,21 +76,22 @@
             icon: e.detail[0].type,
             title: e.detail[0].title,
             text: e.detail[0].text,
+            timer: e.detail[0].timer,
         });
     });
 
     window.addEventListener('swal:confirm-delete', e => {
         Swal.fire({
-            title: `@lang('admin.confirm_delete')`,
-            text: `${e.detail[0].name}`,
-            icon: 'warning',
+            title: e.detail[0].title,
+            text: e.detail[0].name,
+            icon: 'question',
             showCancelButton: true,
             confirmButtonColor: '#d33',
             confirmButtonText: '@lang('admin.delete')',
             cancelButtonText: '@lang('common.cancel')'
         }).then(result => {
             if (result.isConfirmed) {
-                Livewire.dispatch('restaurant:delete-confirmed', { id: e.detail[0].id });
+                Livewire.dispatch(`${e.detail[0].key}:delete-confirmed`, { id: e.detail[0].id });
             }
         });
     });

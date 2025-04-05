@@ -22,5 +22,6 @@ COPY . .
 
 RUN composer install --no-interaction --optimize-autoloader
 
-EXPOSE 8002
-CMD ["sh", "-c", "unlink public/storage && php artisan storage:link && php artisan serve --host=0.0.0.0 --port=8002"]
+EXPOSE 8000
+
+CMD ["sh", "-c", "unlink public/storage && php artisan storage:link && php artisan serve --host=0.0.0.0 --port=8000"]

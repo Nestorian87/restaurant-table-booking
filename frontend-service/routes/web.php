@@ -2,8 +2,7 @@
 
 use App\Livewire\Admin\AdminDashboardPage;
 use App\Livewire\Admin\RestaurantCreatePage;
-use App\Livewire\Admin\RestaurantEditPage;
-use App\Livewire\Admin\RestaurantForm;
+use App\Livewire\Admin\Restaurants\EditRestaurantPage;
 use App\Livewire\Auth\AdminLoginPage;
 use App\Livewire\Auth\LoginPage;
 use App\Livewire\Auth\RegisterPage;
@@ -30,6 +29,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::prefix('restaurants')->name('restaurants.')->group(function () {
         Route::get('/create', RestaurantCreatePage::class)->name('create');
-        Route::get('/{restaurantId}/edit', RestaurantEditPage::class)->name('edit');
+        Route::get('/{restaurantId}/edit', EditRestaurantPage::class)->name('edit');
     });
 });

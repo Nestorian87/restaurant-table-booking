@@ -24,6 +24,7 @@ class AdminRestaurantController extends Controller
             'location' => 'required|string|max:255',
             'phone' => 'nullable|string|max:20',
             'description' => 'nullable|string',
+            'max_booking_places' => 'nullable|integer|min:1',
             'working_hours' => 'array',
         ]);
 
@@ -51,6 +52,7 @@ class AdminRestaurantController extends Controller
             'phone' => 'nullable|string|max:20',
             'description' => 'nullable|string',
             'working_hours' => 'array',
+            'max_booking_places' => 'nullable|integer|min:1',
         ]);
 
         $restaurant->update($validated);

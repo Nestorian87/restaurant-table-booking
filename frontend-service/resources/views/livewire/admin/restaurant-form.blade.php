@@ -9,7 +9,8 @@
         <span class="text-danger">{{ $message }}</span>
         @enderror
 
-        <x-ui.input name="location" label="{{ __('admin.location') }}" maxlength="100" model="location" :required="true"/>
+        <x-ui.input name="location" label="{{ __('admin.location') }}" maxlength="100" model="location"
+                    :required="true"/>
         @error('location')
         <span class="text-danger">{{ $message }}</span>
         @enderror
@@ -27,16 +28,34 @@
         <span class="text-danger">{{ $message }}</span>
         @enderror
 
-        <x-ui.input name="description" label="{{ __('admin.description') }}" maxlength="100" model="description" type="textarea"/>
+        <x-ui.input name="description" label="{{ __('admin.description') }}" maxlength="100" model="description"
+                    type="textarea"/>
         @error('description')
+        <span class="text-danger">{{ $message }}</span>
+        @enderror
+
+        <x-ui.input name="max_booking_places" label="{{ __('admin.max_booking_place') }}" min="1" max="100"
+                    model="maxBookingPlaces"
+                    required
+                    type="number"/>
+        @error('max_booking_places')
         <span class="text-danger">{{ $message }}</span>
         @enderror
 
         <livewire:admin.working-hours-form :existing="$workingHours" wire:model="workingHours"/>
 
+        @if($restaurantId)
+            <x-ui.button-red type="button" class="mt-3" wire:click="delete">
+                {{ __('common.delete') }}
+            </x-ui.button-red>
 
-        <x-ui.button-green type="submit" as="input" class="mt-3">
-            {{ __('admin.save') }}
-        </x-ui.button-green>
+            <x-ui.button-green type="submit" as="input" class="mt-3">
+                {{ __('admin.save') }}
+            </x-ui.button-green>
+        @else
+            <x-ui.button-green type="submit" as="input" class="mt-3">
+                {{ __('admin.create') }}
+            </x-ui.button-green>
+        @endif
     </form>
 </div>
