@@ -7,4 +7,6 @@ return [
     'upload' => 'Upload',
     'delete' => 'Delete',
     'cancel' => 'Cancel',
+    'select_option' => 'Not selected',
+    'back' => 'Back',
 ];

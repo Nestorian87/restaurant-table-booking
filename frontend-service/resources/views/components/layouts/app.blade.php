@@ -29,6 +29,10 @@
             border-color: #388e3c;
         }
 
+        .text-success {
+            color: #43a047 !important;
+        }
+
         .btn-orange {
             background-color: #ff9800;
             border-color: #ff9800;
@@ -91,7 +95,7 @@
             cancelButtonText: '@lang('common.cancel')'
         }).then(result => {
             if (result.isConfirmed) {
-                Livewire.dispatch(`${e.detail[0].key}:delete-confirmed`, { id: e.detail[0].id });
+                Livewire.dispatch(`${e.detail[0].key}:delete-confirmed`, {id: e.detail[0].id});
             }
         });
     });
@@ -102,6 +106,7 @@
         window.location.href = data[0].url;
     });
 </script>
+@stack('scripts')
 </body>
 </html>
 

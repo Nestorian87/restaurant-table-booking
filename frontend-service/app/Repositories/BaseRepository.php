@@ -20,8 +20,8 @@ abstract class BaseRepository
     protected function request(
         string $url,
         string $method = 'GET',
-        array $data = [],
-        bool $isMultipart = false
+        array  $data = [],
+        bool   $isMultipart = false
     ): ApiResult
     {
         $token = $this->getToken();
@@ -34,21 +34,32 @@ abstract class BaseRepository
         if ($isMultipart) {
             $request = $request->asMultipart();
 
-            foreach ($data as $field) {
-                if (
-                    isset($field['name'], $field['contents'], $field['filename'])
-                ) {
+            $request->withOptions(['multipart' => $data]);
+
+            $multipartFields = [];
+
+            foreach ($data as $item) {
+                if (isset($item['filename'])) {
                     $request = $request->attach(
-                        $field['name'],
-                        $field['contents'],
-                        $field['filename']
+                        $item['name'],
+                        $item['contents'],
+                        $item['filename']
                     );
+                } else {
+                    $multipartFields[] = [
+                        'name' => $item['name'],
+                        'contents' => $item['contents'],
+                    ];
                 }
             }
+
+            if (!empty($multipartFields)) {
+                $request = $request->withOptions(['multipart' => $multipartFields]);
+            }
+
             $httpMethod = strtolower($method);
             $response = $request->{$httpMethod}($fullUrl);
-        }
-        else {
+        } else {
             $request = $request->withHeaders(['Content-Type' => 'application/json']);
             $response = $request->send($method, $fullUrl, ['json' => $data]);
         }
@@ -57,15 +68,7 @@ abstract class BaseRepository
             error_log("API Request:");
             error_log("URL: $method $fullUrl");
             error_log("Token: $token");
-
-            if ($isMultipart) {
-                foreach ($data as $f) {
-                    error_log("File: {$f['name']} => {$f['filename']}");
-                }
-            } else {
-                error_log("Payload: " . json_encode($data));
-            }
-
+            error_log("Payload: " . json_encode($data));
             error_log("API Response:");
             error_log("Status: " . $response->status());
             error_log("Body: " . $response->body());

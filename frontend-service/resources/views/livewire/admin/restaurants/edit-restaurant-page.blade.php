@@ -14,6 +14,10 @@
                     wire:click="setTab('tables')">
                     {{ __('admin.tables') }}
                 </li>
+                <li class="list-group-item {{ $activeTab === 'menu' ? 'active' : '' }}"
+                    wire:click="setTab('menu')">
+                    {{ __('admin.menu_management') }}
+                </li>
             </ul>
         </div>
 
@@ -24,6 +28,8 @@
                 <livewire:admin.restaurants.tabs.gallery-tab :restaurant-id="$restaurantId" />
             @elseif ($activeTab === 'tables')
                 <livewire:admin.restaurants.tabs.tables-tab :restaurant-id="$restaurantId" />
+            @elseif ($activeTab === 'menu')
+                <livewire:admin.restaurants.tabs.menu-tab :restaurant-id="$restaurantId" />
             @endif
         </div>
     </div>
