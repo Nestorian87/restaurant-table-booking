@@ -11,6 +11,8 @@ services:
       - "8001:8001"
     networks:
       - app-network
+    depends_on:
+      - rabbitmq
 
   restaurant-service:
     build:
@@ -20,6 +22,32 @@ services:
       - ./restaurant-service:/var/www
     ports:
       - "8002:8002"
+    networks:
+      - app-network
+    depends_on:
+      - rabbitmq
+
+  booking-service:
+    build:
+      context: ./booking-service
+    container_name: booking-service
+    volumes:
+      - ./booking-service:/var/www
+    ports:
+      - "8003:8003"
+    networks:
+      - app-network
+    depends_on:
+      - rabbitmq
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
     networks:
       - app-network
 
@@ -33,6 +61,7 @@ services:
     depends_on:
       - user-service
       - restaurant-service
+      - booking-service
     networks:
       - app-network
 

@@ -1,5 +1,8 @@
-<div class="container mt-4">
-    <div class="row">
+<div class="container">
+    <x-ui.button-green wire:click="goBack">
+        ← {{ __('common.back') }}
+    </x-ui.button-green>
+    <div class="row mt-4">
         <div class="col-md-3">
             <ul class="list-group">
                 <li class="list-group-item {{ $activeTab === 'settings' ? 'active' : '' }}"
@@ -18,6 +21,10 @@
                     wire:click="setTab('menu')">
                     {{ __('admin.menu_management') }}
                 </li>
+                <li class="list-group-item {{ $activeTab === 'bookings' ? 'active' : '' }}"
+                    wire:click="setTab('bookings')">
+                    {{ __('admin.bookings') }}
+                </li>
             </ul>
         </div>
 
@@ -30,6 +37,8 @@
                 <livewire:admin.restaurants.tabs.tables-tab :restaurant-id="$restaurantId" />
             @elseif ($activeTab === 'menu')
                 <livewire:admin.restaurants.tabs.menu-tab :restaurant-id="$restaurantId" />
+            @elseif($activeTab === 'bookings')
+                <livewire:admin.restaurants.tabs.bookings-tab :restaurant-id="$restaurantId" />
             @endif
         </div>
     </div>

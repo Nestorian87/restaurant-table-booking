@@ -1,0 +1,28 @@
+<?php
+
+return [
+    'filter_status' => 'Фільтр за статусом',
+    'sort_by' => 'Сортувати за',
+    'sort_direction' => 'Напрямок',
+    'all_statuses' => 'Всі статуси',
+    'status_confirmed' => 'Підтверджено',
+    'status_cancelled' => 'Скасовано',
+    'sort_start_time' => 'Час початку',
+    'sort_end_time' => 'Час завершення',
+    'sort_status' => 'Статус',
+    'sort_created_at' => 'Дата створення',
+    'sort_desc' => '⬇︎ Спочатку нові',
+    'sort_asc' => '⬆︎ Спочатку старі',
+    'loading' => 'Завантаження...',
+    'user' => 'Користувач',
+    'places' => 'місць',
+    'tables' => 'стіл/столи',
+    'review' => 'Відгук',
+    'kitchen' => 'Кухня',
+    'interior' => 'Інтер’єр',
+    'service' => 'Сервіс',
+    'atmosphere' => 'Атмосфера',
+    'cancel_booking' => 'Скасувати',
+    'tables_word' => '{1} столик|[2,4] столики|[5,*] столиків',
+    'places_word' => '{1} місце|[2,4] місця|[5,*] місць',
+];

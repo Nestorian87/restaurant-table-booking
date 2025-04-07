@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Enums\UserErrorCode;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Services\RabbitMQPublisher;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -12,6 +13,10 @@ use Illuminate\Validation\ValidationException;
 
 class RegisterController extends Controller
 {
+    public function __construct(protected RabbitMQPublisher $publisher)
+    {
+    }
+
     public function register(Request $request): JsonResponse
     {
         try {
@@ -43,6 +48,12 @@ class RegisterController extends Controller
                 'surname' => $validated['surname'],
                 'email' => $validated['email'],
                 'password' => bcrypt($validated['password']),
+            ]);
+
+            $this->publisher->publishUserEvent('created', [
+                'id' => $user->id,
+                'name' => $user->name,
+                'surname' => $user->surname,
             ]);
         } catch (QueryException $e) {
             return response()->json([

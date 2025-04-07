@@ -85,17 +85,19 @@
     });
 
     window.addEventListener('swal:confirm-delete', e => {
+        const isCancellation = e.detail[0].type === 'cancellation'
         Swal.fire({
             title: e.detail[0].title,
             text: e.detail[0].name,
             icon: 'question',
             showCancelButton: true,
             confirmButtonColor: '#d33',
-            confirmButtonText: '@lang('admin.delete')',
+            confirmButtonText: isCancellation ? '@lang('common.yes')' : '@lang('admin.delete')',
             cancelButtonText: '@lang('common.cancel')'
         }).then(result => {
             if (result.isConfirmed) {
-                Livewire.dispatch(`${e.detail[0].key}:delete-confirmed`, {id: e.detail[0].id});
+                console.log({id: e.detail[0].id})
+                Livewire.dispatch(`${e.detail[0].key}:${isCancellation ? 'cancel' : 'delete'}-confirmed`, {id: e.detail[0].id});
             }
         });
     });

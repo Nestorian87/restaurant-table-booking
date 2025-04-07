@@ -147,5 +147,29 @@ class RestaurantAdminRepository extends BaseAdminRepository
         return $this->request("/restaurants/admin/menu-items/{$itemId}", 'DELETE');
     }
 
+    public function getRestaurantBookings(
+        int $restaurantId,
+        ?string $status = null,
+        string $sortBy = 'start_time',
+        string $sortDir = 'desc',
+        int $page = 1,
+        int $perPage = 10
+    ): ApiResult {
+        $query = http_build_query(array_filter([
+            'status' => $status,
+            'sort_by' => $sortBy,
+            'sort_dir' => $sortDir,
+            'page' => $page,
+            'per_page' => $perPage,
+        ]));
 
+        error_log('Making request to get restaurant bookings with query: ' . $query);
+
+        return $this->request("/bookings/admin/bookings/restaurants/{$restaurantId}?{$query}");
+    }
+
+    public function cancelBooking(int $bookingId)
+    {
+        return $this->request("/bookings/admin/bookings/{$bookingId}/cancel", 'POST');
+    }
 }

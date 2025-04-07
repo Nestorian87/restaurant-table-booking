@@ -9,4 +9,5 @@ return [
     'cancel' => 'Скасувати',
     'select_option' => 'Не обрано',
     'back' => 'Назад',
+    'yes' => 'Так'
 ];

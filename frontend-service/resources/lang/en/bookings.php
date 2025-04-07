@@ -1,0 +1,28 @@
+<?php
+
+return [
+    'filter_status' => 'Filter by status',
+    'sort_by' => 'Sort by',
+    'sort_direction' => 'Direction',
+    'all_statuses' => 'All statuses',
+    'status_confirmed' => 'Confirmed',
+    'status_cancelled' => 'Cancelled',
+    'sort_start_time' => 'Start time',
+    'sort_end_time' => 'End time',
+    'sort_status' => 'Status',
+    'sort_created_at' => 'Created at',
+    'sort_desc' => '⬇︎ Newest first',
+    'sort_asc' => '⬆︎ Oldest first',
+    'loading' => 'Loading...',
+    'user' => 'User',
+    'places' => 'places',
+    'tables' => 'table(s)',
+    'review' => 'Review',
+    'kitchen' => 'Kitchen',
+    'interior' => 'Interior',
+    'service' => 'Service',
+    'atmosphere' => 'Atmosphere',
+    'cancel_booking' => 'Cancel',
+    'tables_word' => '{1} table|[2,4] tables|[5,*] tables',
+    'places_word' => '{1} place|[2,4] places|[5,*] places',
+];

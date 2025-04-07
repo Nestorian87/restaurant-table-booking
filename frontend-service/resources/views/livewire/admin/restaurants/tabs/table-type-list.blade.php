@@ -1,7 +1,7 @@
 <ul class="list-group">
     @foreach($tableTypes as $table)
         <li class="list-group-item d-flex justify-content-between align-items-center {{ $editId == $table['id'] ? 'bg-secondary-subtle' : '' }}">
-            <span>{{ $table['tables_count'] }} {{ trans_choice('admin.tables_word', $table['tables_count']) }} × {{ $table['places_count'] }} {{  trans_choice('admin.places_word', $table['places_count']) }}</span>
+            <span>{{ $table['tables_count'] }} {{ trans_choice('bookings.tables_word', $table['tables_count']) }} × {{ $table['places_count'] }} {{  trans_choice('bookings.places_word', $table['places_count']) }}</span>
             <div class="d-flex gap-2">
                 <x-ui.button-orange size="sm" as="button" padding=""   wire:click="edit({{json_encode($table)}})">
                     {{ __('admin.edit') }}

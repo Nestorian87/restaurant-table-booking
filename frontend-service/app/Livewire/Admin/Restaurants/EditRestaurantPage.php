@@ -18,6 +18,11 @@ class EditRestaurantPage extends Component
         $this->activeTab = $tab;
     }
 
+    public function goBack()
+    {
+        $this->dispatch('spa:navigate', ['url' => route('admin.dashboard')]);
+    }
+
     public function render()
     {
         return view('livewire.admin.restaurants.edit-restaurant-page');

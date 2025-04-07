@@ -21,6 +21,8 @@ class LoginController extends Controller
             ], 401);
         }
 
+        error_log("Token: $token");
+
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',

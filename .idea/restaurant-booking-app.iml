@@ -259,6 +259,10 @@
       <excludeFolder url="file://$MODULE_DIR$/user-service-old/vendor/voku/portable-ascii" />
       <excludeFolder url="file://$MODULE_DIR$/user-service-old/vendor/webmozart/assert" />
       <excludeFolder url="file://$MODULE_DIR$/frontend-service/vendor/livewire/livewire" />
+      <excludeFolder url="file://$MODULE_DIR$/user-service/vendor/paragonie/constant_time_encoding" />
+      <excludeFolder url="file://$MODULE_DIR$/user-service/vendor/paragonie/random_compat" />
+      <excludeFolder url="file://$MODULE_DIR$/user-service/vendor/php-amqplib/php-amqplib" />
+      <excludeFolder url="file://$MODULE_DIR$/user-service/vendor/phpseclib/phpseclib" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

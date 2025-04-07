@@ -31,8 +31,6 @@ return [
     'create' => 'Create',
     'add' => 'Add',
     'update' => 'Update',
-    'tables_word' => '{1} table|[2,4] tables|[5,*] tables',
-    'places_word' => '{1} place|[2,4] places|[5,*] places',
     'table_type_confirm_delete' => 'Are you sure you want to delete this table?',
     'category_confirm_delete' => 'Delete category? All dishes in this category will be deleted. Are you sure?',
     'menu_management' => 'Menu Management',
@@ -45,4 +43,6 @@ return [
     'unit' => 'Unit',
     'category' => 'Category',
     'photo' => 'Photo',
+    'booking_cancel_confirmation' => 'Are you sure you want to cancel this booking?',
+    'bookings' => 'Bookings',
 ];

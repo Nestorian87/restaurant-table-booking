@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y \
     npm \
     nodejs
 
-RUN docker-php-ext-install pdo pdo_sqlite mbstring
+RUN docker-php-ext-install pdo pdo_sqlite mbstring sockets
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 

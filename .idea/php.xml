@@ -407,6 +407,10 @@
       <path value="$PROJECT_DIR$/frontend-service/vendor/symfony/mailer" />
       <path value="$PROJECT_DIR$/frontend-service/vendor/symfony/polyfill-intl-idn" />
       <path value="$PROJECT_DIR$/frontend-service/vendor/livewire/livewire" />
+      <path value="$PROJECT_DIR$/user-service/vendor/phpseclib/phpseclib" />
+      <path value="$PROJECT_DIR$/user-service/vendor/php-amqplib/php-amqplib" />
+      <path value="$PROJECT_DIR$/user-service/vendor/paragonie/random_compat" />
+      <path value="$PROJECT_DIR$/user-service/vendor/paragonie/constant_time_encoding" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.2" />

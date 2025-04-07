@@ -11,10 +11,10 @@ abstract class BaseComponent extends Component
     abstract protected function getTokenCookieName(): string;
     abstract protected function getLoginRoute(): string;
 
-    protected function handleApiResult(ApiResult $result, ?callable $onSuccess = null, ?callable $onFailure = null)
+    protected function handleApiResult(ApiResult $result, ?callable $onSuccess = null, ?callable $onFailure = null, $logoutOnUnauthorized = true)
     {
         error_log('Handle API Result: ' . json_encode($result));
-        if ($result->status === 401) {
+        if ($result->status === 401 && $logoutOnUnauthorized) {
             Cookie::queue(Cookie::forget($this->getTokenCookieName()));
             error_log('Token cookie cleared: ' . $this->getTokenCookieName());
 

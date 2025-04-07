@@ -46,7 +46,7 @@ class AdminLoginPage extends BaseAdminComponent
                 'title' => __('common.error'),
                 'text' => $text,
             ]);
-        });
+        }, logoutOnUnauthorized: false);
 
 
     }
