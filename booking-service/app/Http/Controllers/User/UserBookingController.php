@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Booking;
+use App\Models\Restaurant;
 use App\Models\TableType;
 use App\Models\WorkingHour;
 use Illuminate\Http\Request;
@@ -74,10 +75,10 @@ class UserBookingController extends Controller
             throw ValidationException::withMessages(['start_time' => 'Бронювання виходить за межі робочого часу ресторану.']);
         }
 
-
-
         DB::beginTransaction();
         try {
+            $totalPlaces = 0;
+
             foreach ($data['table_types'] as $typeRequest) {
                 $typeId = $typeRequest['id'];
                 $requestedCount = $typeRequest['count'];
@@ -104,6 +105,16 @@ class UserBookingController extends Controller
                         'table_types' => "Недостатньо доступних столів типу '{$typeId}'"
                     ]);
                 }
+
+
+                $totalPlaces += $tableType->places_count * $typeRequest['count'];
+            }
+
+            $restaurant = Restaurant::findOrFail($data['restaurant_id']);
+            if ($restaurant->max_booking_places !== null && $totalPlaces > $restaurant->max_booking_places) {
+                throw ValidationException::withMessages([
+                    'table_types' => "Максимальна кількість місць для бронювання перевищена ({$totalPlaces} з {$restaurant->max_booking_places})."
+                ]);
             }
 
             $booking = Booking::create([
