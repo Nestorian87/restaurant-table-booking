@@ -3,8 +3,9 @@
 return [
     'dashboard_title' => 'Admin Dashboard',
     'dashboard_subtitle' => 'Overview of your restaurant system',
-    'new_reservations' => 'New Reservations',
-    'pending_reviews' => 'Pending Reviews',
+    'total_users' => 'Total Users',
+    'active_bookings' => 'Active Bookings',
+    'total_reviews' => 'Total Reviews',
     'restaurants' => 'Restaurants',
     'name' => 'Name',
     'location' => 'Location',

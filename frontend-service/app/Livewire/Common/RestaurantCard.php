@@ -1,10 +1,8 @@
 <?php
 
-namespace App\Livewire\Admin;
+namespace App\Livewire\Common;
 
 use App\Livewire\Base\BaseAdminComponent;
-use App\Repositories\Admin\RestaurantAdminRepository;
-use Livewire\Attributes\On;
 
 class RestaurantCard extends BaseAdminComponent
 {
@@ -13,7 +11,7 @@ class RestaurantCard extends BaseAdminComponent
 
     public function render()
     {
-        return view('livewire.admin.restaurant-card');
+        return view('livewire.common.restaurant-card');
     }
 }
 

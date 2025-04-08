@@ -1,6 +1,5 @@
 <form wire:submit="submit" class="container bg-white p-4 rounded-4 shadow-sm" style="max-width: 800px;">
 
-    {{-- Фото --}}
     <div class="d-flex justify-content-center mb-4">
         <div class="position-relative rounded-4 overflow-hidden shadow-sm" style="width: 220px; height: 160px;">
             @if($photo)
@@ -27,7 +26,6 @@
         </div>
     </div>
 
-    {{-- Ряд 1: Назва та Ціна --}}
     <div class="row gx-4 gy-3">
         <div class="col-md-8">
             <x-ui.input
@@ -49,7 +47,6 @@
             />
         </div>
 
-        {{-- Ряд 2: Опис --}}
         <div class="col-12">
             <label for="description" class="form-label mb-1">
                 {{ __('admin.description') }}
@@ -111,7 +108,6 @@
         </div>
     </div>
 
-    {{-- Кнопка --}}
     <div class="d-flex justify-content-end mt-4">
         <x-ui.button-orange as="button" type="submit" size="lg" class="px-5 py-2 rounded-3 shadow-sm">
             {{ $editId ? __('admin.update') : __('admin.add') }}

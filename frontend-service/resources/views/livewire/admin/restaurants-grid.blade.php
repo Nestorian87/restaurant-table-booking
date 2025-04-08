@@ -14,7 +14,7 @@
     }
 }">
     @foreach ($restaurants as $restaurant)
-        <livewire:admin.restaurant-card
+        <livewire:common.restaurant-card
             :restaurant="$restaurant"
             :wire:key="'restaurant-'.$restaurant['id']"
             class="col-md-4"

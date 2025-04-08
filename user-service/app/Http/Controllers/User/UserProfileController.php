@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Services\RabbitMQPublisher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class UserProfileController extends Controller
 {
@@ -17,12 +18,22 @@ class UserProfileController extends Controller
     {
         $user = Auth::user();
 
-        $validated = $request->validate([
-            'name' => 'sometimes|string|max:50',
-            'surname' => 'sometimes|string|max:50',
-            'email' => 'sometimes|email|unique:users,email,' . $user->id,
-            'password' => 'sometimes|string|min:6|confirmed',
-        ]);
+        try {
+            $validated = $request->validate([
+                'name' => 'sometimes|string|max:50',
+                'surname' => 'sometimes|string|max:50',
+                'email' => 'sometimes|email|unique:users,email,' . $user->id,
+                'password' => 'sometimes|string|min:6',
+            ]);
+        } catch (ValidationException $e) {
+            $errors = $e->errors();
+            if (isset($errors['email']) && str_contains(implode(' ', $errors['email']), 'taken')) {
+                return response()->json([
+                    'error_code' => UserErrorCode::UserAlreadyExists->value,
+                    'message' => 'Email already exists.',
+                ], 409);
+            }
+        }
 
         if (isset($validated['password'])) {
             $validated['password'] = bcrypt($validated['password']);
@@ -42,7 +53,8 @@ class UserProfileController extends Controller
     /**
      * Delete the authenticated user's account.
      */
-    public function destroy()
+    public
+    function destroy()
     {
         $user = Auth::user();
 

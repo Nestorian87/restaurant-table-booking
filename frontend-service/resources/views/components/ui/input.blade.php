@@ -13,9 +13,10 @@
     'wireInputDebounce' => null,
     'pattern' => null,
     'placeholder' => null,
+    'margin' => 'mb-3'
 ])
 
-<div class="mb-3">
+<div class="{{ $margin }}">
     @if ($label)
         <label class="form-label" for="{{ $name }}">{{ $label }}</label>
     @endif
@@ -35,7 +36,7 @@
         {{ $max ? 'max=' . $max : '' }}
         {{ $maxlength ? 'maxlength=' . $maxlength : '' }}
         {{ $minlength ? 'minlength=' . $minlength : '' }}
-        {{ $placeholder ? 'placeholder=' . $placeholder : '' }}
+        @isset($placeholder) placeholder="{{ $placeholder }}" @endisset
         {{ $pattern ? 'pattern=' . $pattern : '' }}
     />
 </div>

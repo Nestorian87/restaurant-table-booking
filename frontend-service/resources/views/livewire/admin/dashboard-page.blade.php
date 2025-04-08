@@ -1,9 +1,13 @@
 <div>
-    <livewire:admin.admin-header />
-
     <div class="container">
+
         <div class="mb-5">
-            <h1 class="display-5 fw-bold">{{ __('admin.dashboard_title') }}</h1>
+            <div class="d-flex justify-content-between">
+                <h1 class="display-5 fw-bold">{{ __('admin.dashboard_title') }}</h1>
+                <x-ui.button-red wire:click="logout" class="align-self-center py-2 px-4">
+                    {{ __('auth.logout') }}
+                </x-ui.button-red>
+            </div>
             <p class="text-muted">{{ __('admin.dashboard_subtitle') }}</p>
         </div>
 

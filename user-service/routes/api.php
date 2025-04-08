@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\User\UserProfileController;
@@ -20,6 +21,7 @@ Route::prefix('admin')->group(function () {
     Route::middleware('auth:admin')->get('/me', function () {
         return response()->json(auth()->user());
     });
+    Route::get('/users/count', [AdminUserController::class, 'count']);
 });
 
 Route::options('{any}', function () {

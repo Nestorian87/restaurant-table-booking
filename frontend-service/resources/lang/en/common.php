@@ -9,5 +9,6 @@ return [
     'cancel' => 'Cancel',
     'select_option' => 'Not selected',
     'back' => 'Back',
-    'yes' => 'Yes'
+    'yes' => 'Yes',
+    'save' => 'Save',
 ];

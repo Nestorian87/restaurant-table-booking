@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminBookingsStatisticsController;
 use App\Http\Controllers\Admin\AdminRestaurantBookingController;
 use App\Http\Controllers\User\UserBookingController;
 use App\Http\Controllers\User\UserReviewController;
@@ -8,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('admin')->middleware(['jwt.signature:admin'])->group(function () {
     Route::get('bookings/restaurants/{restaurant}', [AdminRestaurantBookingController::class, 'index']);
     Route::post('/bookings/{booking}/cancel', [AdminRestaurantBookingController::class, 'cancel']);
+    Route::get('/bookings/statistics', [AdminBookingsStatisticsController::class, 'index']);
 });
 
 Route::middleware(['jwt.signature:user'])->group(function () {

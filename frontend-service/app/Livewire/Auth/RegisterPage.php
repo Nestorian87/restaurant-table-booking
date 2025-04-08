@@ -2,18 +2,28 @@
 
 namespace App\Livewire\Auth;
 
+use App\Dto\ApiResult;
 use App\Enums\UserErrorCode;
+use App\Livewire\Base\BaseUserComponent;
+use App\Repositories\User\AuthUserRepository;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 
-class RegisterPage extends Component
+class RegisterPage extends BaseUserComponent
 {
     public string $name = '';
     public string $surname = '';
     public string $email = '';
     public string $password = '';
     public string $password_confirmation = '';
+
+    private AuthUserRepository $repository;
+
+    public function boot(AuthUserRepository $repository)
+    {
+        $this->repository = $repository;
+    }
 
     public function register()
     {
@@ -26,18 +36,14 @@ class RegisterPage extends Component
             return;
         }
 
-        $response = Http::acceptJson()->post(config('services.api_base_url') . '/users/register', [
-            'name' => $this->name,
-            'surname' => $this->surname,
-            'email' => $this->email,
-            'password' => $this->password,
-            'password_confirmation' => $this->password_confirmation
-        ]);
-
-        $data = $response->json();
-
-        if ($response->failed()) {
-            $error = UserErrorCode::tryFrom($data['error_code'] ?? null);
+        $result = $this->repository->register($this->name, $this->surname, $this->email, $this->password);
+        $this->handleApiResult($result, onSuccess: function ($data) {
+            Cookie::queue('user_token', $data['access_token'], 60 * 24);
+            $this->dispatch('spa:navigate', [
+                'url' => route('user.dashboard')
+            ]);
+        }, onFailure: function (ApiResult $result) {
+            $error = UserErrorCode::tryFrom($result->errorCode ?? null);
 
             $text = match ($error) {
                 UserErrorCode::ValidationFailed => __('common.validation_error'),
@@ -50,10 +56,7 @@ class RegisterPage extends Component
                 'title' => __('common.error'),
                 'text' => $text,
             ]);
-            return;
-        }
-
-        Cookie::queue('user_token', $data['access_token'], 60 * 24);
+        });
     }
 
     public function render()

@@ -7,6 +7,8 @@ use App\Livewire\Auth\AdminLoginPage;
 use App\Livewire\Auth\LoginPage;
 use App\Livewire\Auth\RegisterPage;
 use App\Livewire\IndexPage;
+use App\Livewire\User\UserDashboardPage;
+use App\Livewire\User\UserProfilePage;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/lang/{locale}', function ($locale) {
@@ -22,6 +24,9 @@ Route::get('/lang/{locale}', function ($locale) {
 Route::get('/', IndexPage::class)->name('home');
 Route::get('/login', LoginPage::class)->name('login');
 Route::get('/register', RegisterPage::class)->name('register');
+Route::get('/dashboard', UserDashboardPage::class)->name('user.dashboard');
+Route::get('/profile', UserProfilePage::class)->name('user.profile');
+
 
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/login', AdminLoginPage::class)->name('login');
