@@ -34,7 +34,7 @@
         <span class="text-danger">{{ $message }}</span>
         @enderror
 
-        <x-ui.input name="max_booking_places" label="{{ __('admin.max_booking_place') }}" min="1" max="100"
+        <x-ui.input name="max_booking_places" label="{{ __('admin.max_booking_places') }}" min="1" max="100"
                     model="maxBookingPlaces"
                     required
                     type="number"/>

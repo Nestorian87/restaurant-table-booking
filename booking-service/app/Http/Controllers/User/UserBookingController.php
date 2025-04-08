@@ -74,6 +74,8 @@ class UserBookingController extends Controller
             throw ValidationException::withMessages(['start_time' => 'Бронювання виходить за межі робочого часу ресторану.']);
         }
 
+
+
         DB::beginTransaction();
         try {
             foreach ($data['table_types'] as $typeRequest) {

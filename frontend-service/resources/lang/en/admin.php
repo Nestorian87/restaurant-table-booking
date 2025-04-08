@@ -45,4 +45,5 @@ return [
     'photo' => 'Photo',
     'booking_cancel_confirmation' => 'Are you sure you want to cancel this booking?',
     'bookings' => 'Bookings',
+    'max_booking_places' => 'Max Booking Places',
 ];

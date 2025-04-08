@@ -12,7 +12,7 @@
                 </h6>
                 <span class="badge
                 @if($booking['status'] === 'confirmed') bg-success
-                @elseif($booking['status'] === 'cancelled') bg-danger
+                @elseif($booking['status'] === 'cancelled') bg-secondary
                 @else bg-secondary @endif
             ">
                 <i class="bi bi-info-circle me-1"></i>
