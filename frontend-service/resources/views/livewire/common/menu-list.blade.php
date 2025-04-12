@@ -1,5 +1,4 @@
 @php use Illuminate\Support\Str; @endphp
-
 <div class="col-md-12 pe-4" x-data="scrollSpy()" x-init="observe()">
     @forelse($menuCategories as $category)
         <div id="category-{{ $category['id'] }}" data-category-block class="mb-4" style="min-height: 200px;">
@@ -55,16 +54,18 @@
                                     {{ Str::limit($item['description'], 100) }}
                                 </p>
 
-                                <div class="mt-auto d-flex gap-2">
-                                    <x-ui.button-orange size="sm"
-                                                        wire:click="editItem({{ json_encode($item) }})">
-                                        {{ __('admin.edit') }}
-                                    </x-ui.button-orange>
-                                    <x-ui.button-red size="sm"
-                                                     wire:click="deleteItem({{ $item['id'] }})">
-                                        {{ __('admin.delete') }}
-                                    </x-ui.button-red>
-                                </div>
+                                @if(!$readonly)
+                                    <div class="mt-auto d-flex gap-2">
+                                        <x-ui.button-orange size="sm"
+                                                            wire:click="editItem({{ json_encode($item) }})">
+                                            {{ __('admin.edit') }}
+                                        </x-ui.button-orange>
+                                        <x-ui.button-red size="sm"
+                                                         wire:click="deleteItem({{ $item['id'] }})">
+                                            {{ __('admin.delete') }}
+                                        </x-ui.button-red>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>

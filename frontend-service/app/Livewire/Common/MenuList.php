@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Admin\Restaurants\Tabs;
+namespace App\Livewire\Common;
 
 use App\Livewire\Base\BaseAdminComponent;
 use Livewire\Attributes\On;
@@ -9,6 +9,7 @@ class MenuList extends BaseAdminComponent
 {
     public array $menuItems = [];
     public array $menuCategories = [];
+    public bool $readonly = false;
 
     #[On('menu:updated')]
     public function updateMenuItems($items)
@@ -32,6 +33,6 @@ class MenuList extends BaseAdminComponent
 
     public function render()
     {
-        return view('livewire.admin.restaurants.tabs.menu-list');
+        return view('livewire.common.menu-list');
     }
 }

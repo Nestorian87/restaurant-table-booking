@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\MenuCategoryController;
 use App\Http\Controllers\Admin\MenuItemController;
 use App\Http\Controllers\Admin\RestaurantPhotoController;
 use App\Http\Controllers\Admin\RestaurantTableTypeController;
+use App\Http\Controllers\User\RestaurantMenuController;
 use App\Http\Controllers\User\UserRestaurantController;
 use Illuminate\Support\Facades\Route;
 
@@ -40,4 +41,6 @@ Route::prefix('admin')->middleware(['jwt.signature:admin'])->group(function () {
 
 Route::middleware(['jwt.signature:user'])->group(function () {
     Route::get('restaurants', [UserRestaurantController::class, 'index']);
+    Route::get('restaurants/{restaurant}', [UserRestaurantController::class, 'show']);
+    Route::get('restaurants/{restaurant}/menu', [RestaurantMenuController::class, 'index']);
 });

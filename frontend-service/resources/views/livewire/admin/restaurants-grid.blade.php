@@ -17,6 +17,7 @@
         <livewire:common.restaurant-card
             :restaurant="$restaurant"
             :wire:key="'restaurant-'.$restaurant['id']"
+            :isAdmin="true"
             class="col-md-4"
         />
     @endforeach

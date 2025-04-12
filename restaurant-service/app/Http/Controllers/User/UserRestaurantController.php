@@ -18,4 +18,9 @@ class UserRestaurantController extends Controller
 
         return RestaurantResource::collection($restaurants);
     }
+
+    public function show(Restaurant $restaurant): Restaurant
+    {
+        return $restaurant->load('workingHours', 'photos', 'tableTypes');
+    }
 }

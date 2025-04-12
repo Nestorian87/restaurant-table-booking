@@ -12,11 +12,20 @@ class UserReviewController extends Controller
 {
     public function store(Request $request, Booking $booking)
     {
+        $data = $request->validate([
+            'rating_kitchen' => 'required|integer|min:1|max:5',
+            'rating_interior' => 'required|integer|min:1|max:5',
+            'rating_service' => 'required|integer|min:1|max:5',
+            'rating_atmosphere' => 'required|integer|min:1|max:5',
+            'text' => 'nullable|string|max:1000',
+            'timezone' => 'required|string',
+        ]);
+
         if ($booking->user_id != $request->attributes->get('user_id')) {
             abort(403, 'Unauthorized');
         }
 
-        if ($booking->end_time > Carbon::now()) {
+        if ($booking->end_time > Carbon::now($data['timezone'])) {
             throw ValidationException::withMessages(['booking' => 'You can review only completed bookings.']);
         }
 
@@ -27,14 +36,6 @@ class UserReviewController extends Controller
         if ($booking->review) {
             return response()->json(['message' => 'Review already exists'], 409);
         }
-
-        $data = $request->validate([
-            'rating_kitchen' => 'required|integer|min:1|max:5',
-            'rating_interior' => 'required|integer|min:1|max:5',
-            'rating_service' => 'required|integer|min:1|max:5',
-            'rating_atmosphere' => 'required|integer|min:1|max:5',
-            'text' => 'nullable|string|max:1000',
-        ]);
 
         $review = $booking->review()->create($data);
 

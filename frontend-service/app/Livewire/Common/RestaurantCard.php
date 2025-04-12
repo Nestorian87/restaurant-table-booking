@@ -7,6 +7,7 @@ use App\Livewire\Base\BaseAdminComponent;
 class RestaurantCard extends BaseAdminComponent
 {
     public string $class = '';
+    public bool $isAdmin = false;
     public array $restaurant;
 
     public function render()

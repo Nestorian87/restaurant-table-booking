@@ -1,7 +1,6 @@
 <div class="container py-5">
-    <x-ui.button-green wire:click="goBack">
-        ← {{ __('common.back') }}
-    </x-ui.button-green>
+    @include('components.layouts.partials.user-header')
+
     <div class="row justify-content-center">
         <div class="col-lg-7">
             <div class="card border-0 shadow-sm rounded-4 p-4">

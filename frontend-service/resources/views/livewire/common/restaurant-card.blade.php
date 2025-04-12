@@ -17,7 +17,7 @@
             transform: scale(1.05);
         }
     </style>
-    <a href="{{ route('admin.restaurants.edit', $restaurant['id']) }}" class="text-decoration-none text-dark">
+    <a href="{{ route($isAdmin ? 'admin.restaurants.edit' : 'user.restaurant', $restaurant['id']) }}" class="text-decoration-none text-dark">
         <div class="card h-100 border-0 shadow-sm transition restaurant-card">
             <div class="ratio ratio-16x9 rounded-top overflow-hidden position-relative">
                 @if(!empty($restaurant['photos']))

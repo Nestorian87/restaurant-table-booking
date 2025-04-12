@@ -33,4 +33,9 @@ class Booking extends Model
     {
         return $this->hasOne(Review::class);
     }
+
+    public function restaurant()
+    {
+        return $this->belongsTo(Restaurant::class);
+    }
 }

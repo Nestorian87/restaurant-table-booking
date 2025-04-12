@@ -31,7 +31,7 @@
                     <li>
                         <i class="bi bi-grid-3x3-gap me-1 text-muted"></i>
                         {{ $type['places_count'] }} {{ trans_choice('bookings.places_word', $type['places_count']) }} –
-                        {{ $type['tables_count'] }} {{ trans_choice('bookings.tables_word', $type['tables_count']) }}
+                        {{ $type['pivot']['tables_count'] }} {{ trans_choice('bookings.tables_word',$type['pivot']['tables_count']) }}
                     </li>
                 @endforeach
             </ul>

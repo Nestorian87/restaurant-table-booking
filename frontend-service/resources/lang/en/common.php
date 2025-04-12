@@ -11,4 +11,5 @@ return [
     'back' => 'Back',
     'yes' => 'Yes',
     'save' => 'Save',
+    'app_name' => 'Restaurant Booking App',
 ];
