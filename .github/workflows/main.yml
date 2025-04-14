@@ -20,15 +20,21 @@ jobs:
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login ${{ secrets.DOCKER_REGISTRY }} -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
 
       - name: Build Docker images
-        run: |
-          docker compose build
+        run: docker compose build
 
-      - name: Push Docker Images
+      - name: Tag and Push Docker Images
         run: |
-          services=("user-service" "restaurant-service" "booking-service" "chat-service" "frontend-service")
-          for service in "${services[@]}"; do
-            docker push $IMAGE_PREFIX/$service:latest
-          done
+          docker tag user-service $IMAGE_PREFIX/user-service:latest
+          docker tag restaurant-service $IMAGE_PREFIX/restaurant-service:latest
+          docker tag booking-service $IMAGE_PREFIX/booking-service:latest
+          docker tag chat-service $IMAGE_PREFIX/chat-service:latest
+          docker tag frontend-service $IMAGE_PREFIX/frontend-service:latest
+
+          docker push $IMAGE_PREFIX/user-service:latest
+          docker push $IMAGE_PREFIX/restaurant-service:latest
+          docker push $IMAGE_PREFIX/booking-service:latest
+          docker push $IMAGE_PREFIX/chat-service:latest
+          docker push $IMAGE_PREFIX/frontend-service:latest
 
       - name: Install SSH client and sshpass
         run: sudo apt-get install -y openssh-client sshpass
@@ -37,10 +43,9 @@ jobs:
         run: |
           sshpass -p "${{ secrets.VPS_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << EOF
             docker login ${{ secrets.DOCKER_REGISTRY }} -u ${{ secrets.DOCKER_USERNAME }} --password ${{ secrets.DOCKER_PASSWORD }}
+            cd /path/to/docker-compose
             docker compose down --remove-orphans
-            docker system prune -f
+            docker system prune -f -a --volumes
             docker compose pull
-            docker compose down
             docker compose up -d
           EOF
-
