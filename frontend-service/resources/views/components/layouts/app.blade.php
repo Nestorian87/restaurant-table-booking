@@ -284,6 +284,11 @@
     Livewire.on('spa:navigate', (data) => {
         window.location.href = data[0].url;
     });
+
+    Livewire.on('spa:reload', () => {
+        window.location.reload();
+    });
+
     Livewire.on('unread-count', ({unreadCount}) => {
         lastUnreadCount = unreadCount;
         updateUnreadCountBadge(unreadCount);

@@ -12,6 +12,26 @@
             >
                 {{ $cat['name'] }}
             </button>
+
+            @if($adminMode)
+                <div class="ms-2 d-flex gap-1">
+                    <button
+                        class="btn btn-sm btn-outline-primary py-0 px-1"
+                        title="{{ __('admin.edit') }}"
+                        wire:click="editCategory({{ $cat['id'] }}, '{{ addslashes($cat['name']) }}')"
+                    >
+                        <i class="bi bi-pencil-fill"></i>
+                    </button>
+
+                    <button
+                        class="btn btn-sm btn-outline-danger py-0 px-1"
+                        title="{{ __('admin.delete') }}"
+                        wire:click="confirmDeleteCategory({{ $cat['id'] }})"
+                    >
+                        <i class="bi bi-trash-fill"></i>
+                    </button>
+                </div>
+            @endif
         </div>
     @endforeach
 </div>

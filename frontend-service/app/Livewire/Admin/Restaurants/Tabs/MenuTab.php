@@ -58,19 +58,11 @@ class MenuTab extends BaseAdminComponent
         $this->dispatch('menu:category-selected', $categoryId);
     }
 
-    public function editCategory(int $id, string $name): void
+    #[On('menu-category:edit')]
+    public function editCategory(array $data): void
     {
-        $this->editingCategory = ['id' => $id, 'name' => $name];
+        $this->editingCategory = $data;
         $this->page = 'category-form';
-    }
-
-    public function confirmDeleteCategory(int $id): void
-    {
-        $this->dispatch('swal:confirm-delete', [
-            'id' => $id,
-            'key' => 'menu-category',
-            'title' => __('admin.category_confirm_delete'),
-        ]);
     }
 
     #[On('menu-category:delete-confirmed')]
@@ -78,8 +70,8 @@ class MenuTab extends BaseAdminComponent
     {
         $this->handleApiResult(
             $this->repository->deleteMenuCategory($id),
-            onSuccess: fn() => $this->fetchMenuData(true)
-        );
+            onSuccess: fn() => $this->dispatch('spa:reload')
+    );
 
         if ($this->selectedCategoryId === $id) {
             $this->selectedCategoryId = null;
