@@ -2,6 +2,7 @@ version: '3.8'
 
 services:
   user-service:
+    image: restaurant-app/user-service
     build:
       context: ./user-service
     container_name: user-service
@@ -15,6 +16,7 @@ services:
       - rabbitmq
 
   restaurant-service:
+    image: restaurant-app/restaurant-service
     build:
       context: ./restaurant-service
     container_name: restaurant-service
@@ -28,6 +30,7 @@ services:
       - rabbitmq
 
   booking-service:
+    image: restaurant-app/booking-service
     build:
       context: ./booking-service
     container_name: booking-service
@@ -41,6 +44,7 @@ services:
       - rabbitmq
 
   chat-service:
+    image: restaurant-app/chat-service
     build:
       context: ./chat-service
     container_name: chat-service
@@ -65,6 +69,20 @@ services:
     networks:
       - app-network
 
+  frontend-service:
+    image: restaurant-app/frontend-service
+    build:
+      context: ./frontend-service
+    container_name: frontend-service
+    volumes:
+      - ./frontend-service:/var/www
+    ports:
+      - "8000:8000"
+    networks:
+      - app-network
+    depends_on:
+      - api-gateway
+
   api-gateway:
     image: nginx:alpine
     container_name: api-gateway
@@ -76,6 +94,7 @@ services:
       - user-service
       - restaurant-service
       - booking-service
+      - chat-service
     networks:
       - app-network
 
