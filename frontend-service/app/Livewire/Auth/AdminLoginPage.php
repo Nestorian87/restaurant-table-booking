@@ -22,6 +22,15 @@ class AdminLoginPage extends BaseAdminComponent
         $this->repository = $repository;
     }
 
+    public function mount()
+    {
+        if (Cookie::has('admin_token')) {
+            $this->dispatch('spa:navigate', [
+                'url' => route('admin.dashboard')
+            ]);
+        }
+    }
+
     public function login()
     {
         $result = $this->repository->login($this->email, $this->password);

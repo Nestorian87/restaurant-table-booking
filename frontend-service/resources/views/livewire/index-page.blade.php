@@ -1,4 +1,4 @@
-<div>
+<div class="container">
     <div class="text-center mb-5">
         <h1 class="display-3 fw-bold text-success">@lang('index.title')</h1>
         <p class="lead text-muted">@lang('index.subtitle')</p>

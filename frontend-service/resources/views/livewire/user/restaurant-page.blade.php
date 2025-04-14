@@ -92,6 +92,21 @@
                                 <span class="badge bg-light text-dark">{{ $openClose[0] }} – {{ $openClose[1] }}</span>
                             </div>
                         @endforeach
+                            @php
+                                $allDays = range(0, 6);
+                                $workingDays = $working->pluck('day')->unique()->sort()->values()->all();
+                                $closedDays = array_values(array_diff($allDays, $workingDays));
+                                $closedText = count($closedDays) ? formatDayRange($closedDays, $dayName) : null;
+                            @endphp
+
+                            @if ($closedText)
+                                <div class="d-flex justify-content-between align-items-center py-2">
+                                    <div class="text-muted">
+                                        <i class="bi bi-calendar-x me-2"></i>{{ $closedText }}
+                                    </div>
+                                    <span class="badge bg-light text-dark">{{ __('restaurant.closed') }}</span>
+                                </div>
+                            @endif
                     </div>
                 </div>
             </div>

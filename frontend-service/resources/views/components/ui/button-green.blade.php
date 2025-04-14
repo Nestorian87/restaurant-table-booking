@@ -18,6 +18,7 @@
 @if ($as === 'a')
     <a href="{{ $disabled ? 'javascript:void(0)' : $href }}"
        class="{{ $class }}"
+       {{ $attributes->except(['class', 'href']) }}
        @if($disabled) aria-disabled="true" tabindex="-1" @endif
         {{ $attributes->except('class') }}>
         {{ $slot }}

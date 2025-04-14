@@ -116,29 +116,31 @@
                 <x-ui.button-green as="button" wire:click="addTableType"> {{ __('bookings.add') }}</x-ui.button-green>
             </div>
         </div>
+
+
+        <div>
+            <label class="form-label fw-semibold">{{ __('bookings.selected_tables') }}</label>
+            @forelse ($tables as $index => $table)
+                @php
+                    $type = collect($restaurant['table_types'])->firstWhere('id', $table['type_id']);
+                @endphp
+                <div class="d-flex gap-2 align-items-center mb-2">
+                    <div class="form-control w-50 bg-light rounded-3">
+                        {{ $type['places_count'] }} {{ __('bookings.places_table') }}
+                    </div>
+                    <div class="form-control w-25 bg-light text-center rounded-3">
+                        {{ $table['count'] }}
+                    </div>
+                    <x-ui.button-red as="button" padding="" wire:click="removeTableType({{ $index }})">
+                        <i class="bi bi-x-lg"></i>
+                    </x-ui.button-red>
+                </div>
+            @empty
+                <p class="text-muted">{{ __('bookings.no_tables_selected') }}</p>
+            @endforelse
+        </div>
     @endif
 
-    <div>
-        <label class="form-label fw-semibold">{{ __('bookings.selected_tables') }}</label>
-        @forelse ($tables as $index => $table)
-            @php
-                $type = collect($restaurant['table_types'])->firstWhere('id', $table['type_id']);
-            @endphp
-            <div class="d-flex gap-2 align-items-center mb-2">
-                <div class="form-control w-50 bg-light rounded-3">
-                    {{ $type['places_count'] }} {{ __('bookings.places_table') }}
-                </div>
-                <div class="form-control w-25 bg-light text-center rounded-3">
-                    {{ $table['count'] }}
-                </div>
-                <x-ui.button-red as="button" padding="" wire:click="removeTableType({{ $index }})">
-                    <i class="bi bi-x-lg"></i>
-                </x-ui.button-red>
-            </div>
-        @empty
-            <p class="text-muted">{{ __('bookings.no_tables_selected') }}</p>
-        @endforelse
-    </div>
 
     <x-ui.button-green as="button" type="submit" disabled="{{ !$canSubmit }}">
         <i class="bi bi-calendar-check me-1"></i> {{ __('bookings.book_now') }}

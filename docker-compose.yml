@@ -40,6 +40,20 @@ services:
     depends_on:
       - rabbitmq
 
+  chat-service:
+    build:
+      context: ./chat-service
+    container_name: chat-service
+    volumes:
+      - ./chat-service:/var/www
+    ports:
+      - "8004:8004"
+      - "6001:8080"
+    networks:
+      - app-network
+    depends_on:
+      - rabbitmq
+
   rabbitmq:
     image: rabbitmq:3-management
     ports:

@@ -6,4 +6,7 @@ return [
     'password_hint' => 'Leave password blank if you do not want to change it',
     'edit_profile' => 'Edit Profile',
     'profile' => 'Profile',
+    'establishments' => 'Establishments',
+    'bookings' => 'Bookings',
+    'chat' => 'Chat',
 ];

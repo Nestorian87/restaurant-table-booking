@@ -11,4 +11,10 @@ return [
     'back' => 'Назад',
     'yes' => 'Так',
     'save' => 'Зберегти',
+    'type_your_message' => 'Введіть ваше повідомлення…',
+    'send' => 'Надіслати',
+    'chat_with_support' => 'Чат з підтримкою',
+    'chat_with_user' => 'Чат з :name :surname',
+    'new_message' => 'Нове повідомлення',
+    'messages' => 'Повідомлення',
 ];

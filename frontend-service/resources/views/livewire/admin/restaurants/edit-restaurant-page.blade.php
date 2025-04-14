@@ -1,7 +1,5 @@
 <div class="container">
-    <x-ui.button-green wire:click="goBack">
-        ← {{ __('common.back') }}
-    </x-ui.button-green>
+    @include('components.layouts.partials.admin-header')
     <div class="row mt-4">
         <div class="col-md-3">
             <ul class="list-group">

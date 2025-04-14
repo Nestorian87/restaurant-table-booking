@@ -20,6 +20,7 @@ class UserBookingController extends Controller
 
         return Booking::with(['tableTypes', 'review', 'restaurant'])
             ->where('user_id', $request->attributes->get('user_id'))
+            ->orderBy('start_time', 'desc')
             ->get();
     }
 
@@ -78,13 +79,21 @@ class UserBookingController extends Controller
             ], 422);
         }
 
-        $startTimeStr = $start->format('H:i:s');
-        $endTimeStr = $end->format('H:i:s');
+        $startTimeStr = $start->format('H:i');
+        $endTimeStr = $end->format('H:i');
 
         if ($startTimeStr < $workingHour->open_time || $endTimeStr > $workingHour->close_time) {
             return response()->json([
                 'error_code' => BookingErrorCode::BookingOutOfWorkingHours->value,
                 'message' => 'Booking is outside of restaurant working hours.',
+                'working_hours' => [
+                    'open' => $workingHour->open_time,
+                    'close' => $workingHour->close_time,
+                ],
+                'requested' => [
+                    'start' => $startTimeStr,
+                    'end' => $endTimeStr,
+                ],
             ], 422);
         }
 

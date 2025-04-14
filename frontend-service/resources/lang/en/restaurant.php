@@ -16,4 +16,5 @@ return [
     'no_more_types' => 'All available table types have already been added.',
     'open_now' => 'Open now',
     'closed_now' => 'Closed now',
+    'closed' => 'Closed',
 ];

@@ -23,6 +23,15 @@ class LoginPage extends BaseUserComponent
         $this->repository = $repository;
     }
 
+    public function mount()
+    {
+        if (Cookie::has('user_token')) {
+            $this->dispatch('spa:navigate', [
+                'url' => route('user.dashboard')
+            ]);
+        }
+    }
+
     public function login()
     {
         $result = $this->repository->login($this->email, $this->password);
