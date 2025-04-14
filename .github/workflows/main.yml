@@ -1,0 +1,51 @@
+name: Build and Deploy to VPS
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  IMAGE_PREFIX: ${{ secrets.DOCKER_REGISTRY }}/restaurant-app
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Log in to DigitalOcean Docker Registry
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login ${{ secrets.DOCKER_REGISTRY }} -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+
+      - name: Build Docker images
+        run: docker compose build
+
+      - name: Tag and Push Docker Images
+        run: |
+          docker tag user-service $IMAGE_PREFIX/user-service:latest
+          docker tag restaurant-service $IMAGE_PREFIX/restaurant-service:latest
+          docker tag booking-service $IMAGE_PREFIX/booking-service:latest
+          docker tag chat-service $IMAGE_PREFIX/chat-service:latest
+          docker tag frontend-service $IMAGE_PREFIX/frontend-service:latest
+
+          docker push $IMAGE_PREFIX/user-service:latest
+          docker push $IMAGE_PREFIX/restaurant-service:latest
+          docker push $IMAGE_PREFIX/booking-service:latest
+          docker push $IMAGE_PREFIX/chat-service:latest
+          docker push $IMAGE_PREFIX/frontend-service:latest
+
+      - name: Install SSH client and sshpass
+        run: sudo apt-get install -y openssh-client sshpass
+
+      - name: Deploy via SSH
+        run: |
+          sshpass -p "${{ secrets.VPS_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << EOF
+            docker login ${{ secrets.DOCKER_REGISTRY }} -u ${{ secrets.DOCKER_USERNAME }} --password ${{ secrets.DOCKER_PASSWORD }}
+            cd /path/to/docker-compose
+            docker compose down --remove-orphans
+            docker system prune -f -a --volumes
+            docker compose pull
+            docker compose up -d
+          EOF
