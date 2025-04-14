@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Restaurant extends Model
 {
-    protected $fillable = ['name', 'location', 'phone', 'description', 'max_booking_places'];
+    protected $fillable = ['name', 'location', 'phone', 'description', 'max_booking_places', 'views_count'];
 
     protected $appends = ['has_menu'];
 

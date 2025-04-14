@@ -21,6 +21,7 @@ class UserRestaurantController extends Controller
 
     public function show(Restaurant $restaurant): Restaurant
     {
+        $restaurant->increment('views_count');
         return $restaurant->load('workingHours', 'photos', 'tableTypes');
     }
 }

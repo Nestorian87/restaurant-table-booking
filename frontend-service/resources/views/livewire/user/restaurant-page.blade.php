@@ -92,21 +92,21 @@
                                 <span class="badge bg-light text-dark">{{ $openClose[0] }} – {{ $openClose[1] }}</span>
                             </div>
                         @endforeach
-                            @php
-                                $allDays = range(0, 6);
-                                $workingDays = $working->pluck('day')->unique()->sort()->values()->all();
-                                $closedDays = array_values(array_diff($allDays, $workingDays));
-                                $closedText = count($closedDays) ? formatDayRange($closedDays, $dayName) : null;
-                            @endphp
+                        @php
+                            $allDays = range(0, 6);
+                            $workingDays = $working->pluck('day')->unique()->sort()->values()->all();
+                            $closedDays = array_values(array_diff($allDays, $workingDays));
+                            $closedText = count($closedDays) ? formatDayRange($closedDays, $dayName) : null;
+                        @endphp
 
-                            @if ($closedText)
-                                <div class="d-flex justify-content-between align-items-center py-2">
-                                    <div class="text-muted">
-                                        <i class="bi bi-calendar-x me-2"></i>{{ $closedText }}
-                                    </div>
-                                    <span class="badge bg-light text-dark">{{ __('restaurant.closed') }}</span>
+                        @if ($closedText)
+                            <div class="d-flex justify-content-between align-items-center py-2">
+                                <div class="text-muted">
+                                    <i class="bi bi-calendar-x me-2"></i>{{ $closedText }}
                                 </div>
-                            @endif
+                                <span class="badge bg-light text-dark">{{ __('restaurant.closed') }}</span>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -181,8 +181,10 @@
                             <i class="bi bi-person-fill fs-4 text-success"></i>
                         </div>
                         <div>
-                            <div class="fw-semibold text-dark">{{ $review['user']['name'] ?? __('bookings.deleted_account') }}</div>
-                            <small class="text-muted">{{ \Carbon\Carbon::parse($review['created_at'], $timezone)->diffForHumans() }}</small>
+                            <div
+                                class="fw-semibold text-dark">{{ $review['user']['name'] ?? __('bookings.deleted_account') }}</div>
+                            <small
+                                class="text-muted">{{ \Carbon\Carbon::parse($review['created_at'], $timezone)->diffForHumans() }}</small>
                         </div>
                     </div>
                 </div>
@@ -192,10 +194,18 @@
 
                 {{-- Ratings --}}
                 <div class="small text-muted mb-3 d-flex flex-wrap gap-2 align-items-center">
-                    <div>{{ __('bookings.kitchen') }}: <x-ui.rating-stars :value="$review['rating_kitchen']" size="xs"/></div>
-                    <div>{{ __('bookings.interior') }}: <x-ui.rating-stars :value="$review['rating_interior']" size="xs"/></div>
-                    <div>{{ __('bookings.service') }}: <x-ui.rating-stars :value="$review['rating_service']" size="xs"/></div>
-                    <div>{{ __('bookings.atmosphere') }}: <x-ui.rating-stars :value="$review['rating_atmosphere']" size="xs"/></div>
+                    <div>{{ __('bookings.kitchen') }}:
+                        <x-ui.rating-stars :value="$review['rating_kitchen']" size="xs"/>
+                    </div>
+                    <div>{{ __('bookings.interior') }}:
+                        <x-ui.rating-stars :value="$review['rating_interior']" size="xs"/>
+                    </div>
+                    <div>{{ __('bookings.service') }}:
+                        <x-ui.rating-stars :value="$review['rating_service']" size="xs"/>
+                    </div>
+                    <div>{{ __('bookings.atmosphere') }}:
+                        <x-ui.rating-stars :value="$review['rating_atmosphere']" size="xs"/>
+                    </div>
                 </div>
 
                 {{-- Reactions --}}

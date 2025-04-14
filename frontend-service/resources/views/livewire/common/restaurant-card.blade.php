@@ -35,6 +35,7 @@
                 <h5 class="card-title mb-1">{{ $restaurant['name'] }}</h5>
                 <p class="text-muted mb-0"><i class="bi bi-geo-alt-fill me-1"></i> {{ $restaurant['location'] }}</p>
                 <p class="text-muted mb-0"><i class="bi bi-telephone-fill me-1"></i> {{ $restaurant['phone'] ?? '-' }}
+                <p class="text-muted mb-0"><i class="bi bi-eye-fill me-1"></i> {{ $restaurant['views_count'] }}</p>
                 </p>
             </div>
         </div>
