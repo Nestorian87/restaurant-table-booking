@@ -9,43 +9,45 @@ env:
   IMAGE_PREFIX: ${{ secrets.DOCKER_REGISTRY }}/restaurant-app
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Log in to DigitalOcean Docker Registry
+      - name: Log in to Docker Registry
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login ${{ secrets.DOCKER_REGISTRY }} -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
 
-      - name: Build Docker images
-        run: docker compose build
-
-      - name: Tag and Push Docker Images
+      - name: Build & Push All Services
         run: |
-          docker tag user-service $IMAGE_PREFIX/user-service:latest
-          docker tag restaurant-service $IMAGE_PREFIX/restaurant-service:latest
-          docker tag booking-service $IMAGE_PREFIX/booking-service:latest
-          docker tag chat-service $IMAGE_PREFIX/chat-service:latest
-          docker tag frontend-service $IMAGE_PREFIX/frontend-service:latest
+          declare -A services=(
+            ["user-service"]=./user-service
+            ["restaurant-service"]=./restaurant-service
+            ["booking-service"]=./booking-service
+            ["chat-service"]=./chat-service
+            ["frontend-service"]=./frontend-service
+          )
 
-          docker push $IMAGE_PREFIX/user-service:latest
-          docker push $IMAGE_PREFIX/restaurant-service:latest
-          docker push $IMAGE_PREFIX/booking-service:latest
-          docker push $IMAGE_PREFIX/chat-service:latest
-          docker push $IMAGE_PREFIX/frontend-service:latest
+          for service in "${!services[@]}"; do
+            context="${services[$service]}"
+            image="$IMAGE_PREFIX/$service:latest"
 
-      - name: Install SSH client and sshpass
+            echo "Building $service"
+            docker build -t "$image" "$context"
+
+            echo "Pushing $image"
+            docker push "$image"
+          done
+
+      - name: Install SSH Client and sshpass
         run: sudo apt-get install -y openssh-client sshpass
 
-      - name: Deploy via SSH
+      - name: Deploy to VPS
         run: |
           sshpass -p "${{ secrets.VPS_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << EOF
             docker login ${{ secrets.DOCKER_REGISTRY }} -u ${{ secrets.DOCKER_USERNAME }} --password ${{ secrets.DOCKER_PASSWORD }}
-            cd /path/to/docker-compose
-            docker compose down --remove-orphans
-            docker system prune -f -a --volumes
             docker compose pull
-            docker compose up -d
+            docker compose down
+            docker compose up -d --remove-orphans
           EOF
