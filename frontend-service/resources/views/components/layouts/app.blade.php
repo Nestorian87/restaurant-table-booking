@@ -245,9 +245,9 @@
             cluster: 'mt1',
             wsHost: '{{ env('WEBSOCKETS_HOST') }}',
             wsPort: 6001,
-            forceTLS: false,
+            forceTLS: true,
             encrypted: true,
-            enabledTransports: ['ws'],
+            enabledTransports: ['ws', 'wss'],
             path: '/ws',
             authEndpoint: '{{ env('WEBSOCKETS_BASE_URL') }}/broadcasting/auth',
             auth: {
