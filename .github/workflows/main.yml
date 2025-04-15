@@ -5,9 +5,6 @@ on:
     branches:
       - main
 
-env:
-  IMAGE_PREFIX: ${{ secrets.DOCKER_REGISTRY }}/restaurant-app
-
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -16,8 +13,8 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Log in to Docker Registry
-        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login ${{ secrets.DOCKER_REGISTRY }} -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
 
       - name: Build & Push All Services
         run: |
@@ -31,9 +28,9 @@ jobs:
 
           for service in "${!services[@]}"; do
             context="${services[$service]}"
-            image="$IMAGE_PREFIX/$service:latest"
+            image="nestorian1/restaurant-app-${service}:latest"
 
-            echo "Building $service"
+            echo "Building $image"
             docker build -t "$image" "$context"
 
             echo "Pushing $image"
@@ -45,8 +42,8 @@ jobs:
 
       - name: Deploy to VPS
         run: |
-          sshpass -p "${{ secrets.VPS_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << EOF
-            echo "${{ secrets.DOCKER_PASSWORD }}" | docker login ${{ secrets.DOCKER_REGISTRY }} -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+          sshpass -p "${{ secrets.VPS_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
+            echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
             docker compose pull
             docker compose down
             docker compose up -d --remove-orphans
