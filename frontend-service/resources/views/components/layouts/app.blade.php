@@ -243,7 +243,7 @@
             broadcaster: 'pusher',
             key: 'local',
             cluster: 'mt1',
-            wsHost: 'localhost',
+            wsHost: '{{ env('WEBSOCKETS_HOST') }}',
             wsPort: 6001,
             forceTLS: false,
             encrypted: true,
