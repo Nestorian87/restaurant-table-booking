@@ -281,6 +281,11 @@
         }
     }
 
+    window.Echo = window.Echo || {};
+    if (typeof window.Echo.socketId !== 'function') {
+        window.Echo.socketId = () => null;
+    }
+
     Livewire.on('spa:navigate', (data) => {
         window.location.href = data[0].url;
     });
