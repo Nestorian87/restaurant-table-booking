@@ -24,4 +24,8 @@ COPY . .
 RUN composer install --no-interaction --optimize-autoloader
 
 EXPOSE 8003
-CMD ["sh", "-c", "unlink public/storage || true && php artisan storage:link && supervisord -c /var/www/supervisord.conf"]
+CMD ["sh", "-c", "\
+    unlink public/storage 2>/dev/null || true && \
+    php artisan storage:link && \
+    php artisan migrate --force && \
+    supervisord -c /var/www/supervisord.conf"]

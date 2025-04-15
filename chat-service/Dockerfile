@@ -26,4 +26,6 @@ COPY . .
 RUN composer install --no-interaction --optimize-autoloader
 
 EXPOSE 8004
-CMD ["sh", "-c", "supervisord -c /var/www/supervisord.conf"]
+CMD ["sh", "-c", "\
+    php artisan migrate --force && \
+    supervisord -c /var/www/supervisord.conf"]
