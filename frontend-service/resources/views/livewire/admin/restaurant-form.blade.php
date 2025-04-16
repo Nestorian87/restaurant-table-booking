@@ -9,7 +9,7 @@
         <span class="text-danger">{{ $message }}</span>
         @enderror
 
-        <x-ui.input name="location" label="{{ __('admin.location') }}" maxlength="100" model="location"
+        <x-ui.input name="location" label="{{ __('admin.location') }}" maxlength="255" model="location"
                     :required="true"/>
         @error('location')
         <span class="text-danger">{{ $message }}</span>
@@ -28,7 +28,7 @@
         <span class="text-danger">{{ $message }}</span>
         @enderror
 
-        <x-ui.input name="description" label="{{ __('admin.description') }}" maxlength="100" model="description"
+        <x-ui.input name="description" label="{{ __('admin.description') }}" maxlength="1000" model="description"
                     type="textarea"/>
         @error('description')
         <span class="text-danger">{{ $message }}</span>

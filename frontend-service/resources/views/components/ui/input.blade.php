@@ -21,22 +21,39 @@
         <label class="form-label" for="{{ $name }}">{{ $label }}</label>
     @endif
 
-    <input
-        @if ($model) wire:model.defer="{{ $model }}" @endif
-        @if ($modelLive) wire:model.live="{{ $modelLive }}" @endif
-        @if ($wireInput)
-            {{ $wireInputDebounce ? 'wire:input.debounce.' . $wireInputDebounce : 'wire:input' }}="{{ $wireInput }}"
+        @if ($type === 'textarea')
+            <textarea
+                @if ($model) wire:model.defer="{{ $model }}" @endif
+                @if ($modelLive) wire:model.live="{{ $modelLive }}" @endif
+                @if ($wireInput)
+                    {{ $wireInputDebounce ? 'wire:input.debounce.' . $wireInputDebounce : 'wire:input' }}="{{ $wireInput }}"
+                @endif
+                name="{{ $name }}"
+                id="{{ $name }}"
+                class="form-control"
+                {{ $required ? 'required' : '' }}
+                {{ $maxlength ? 'maxlength=' . $maxlength : '' }}
+                {{ $minlength ? 'minlength=' . $minlength : '' }}
+                @isset($placeholder) placeholder="{{ $placeholder }}" @endisset
+                {{ $pattern ? 'pattern=' . $pattern : '' }}></textarea>
+        @else
+            <input
+                @if ($model) wire:model.defer="{{ $model }}" @endif
+                @if ($modelLive) wire:model.live="{{ $modelLive }}" @endif
+                @if ($wireInput)
+                    {{ $wireInputDebounce ? 'wire:input.debounce.' . $wireInputDebounce : 'wire:input' }}="{{ $wireInput }}"
+                @endif
+                type="{{ $type }}"
+                name="{{ $name }}"
+                id="{{ $name }}"
+                class="form-control"
+                {{ $required ? 'required' : '' }}
+                {{ $min ? 'min=' . $min : '' }}
+                {{ $max ? 'max=' . $max : '' }}
+                {{ $maxlength ? 'maxlength=' . $maxlength : '' }}
+                {{ $minlength ? 'minlength=' . $minlength : '' }}
+                @isset($placeholder) placeholder="{{ $placeholder }}" @endisset
+                {{ $pattern ? 'pattern=' . $pattern : '' }}
+            />
         @endif
-        type="{{ $type }}"
-        name="{{ $name }}"
-        id="{{ $name }}"
-        class="form-control"
-        {{ $required ? 'required' : '' }}
-        {{ $min ? 'min=' . $min : '' }}
-        {{ $max ? 'max=' . $max : '' }}
-        {{ $maxlength ? 'maxlength=' . $maxlength : '' }}
-        {{ $minlength ? 'minlength=' . $minlength : '' }}
-        @isset($placeholder) placeholder="{{ $placeholder }}" @endisset
-        {{ $pattern ? 'pattern=' . $pattern : '' }}
-    />
 </div>

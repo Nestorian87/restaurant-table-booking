@@ -28,7 +28,7 @@ class AdminRestaurantController extends Controller
             'name' => 'required|string|max:100',
             'location' => 'required|string|max:255',
             'phone' => 'nullable|string|max:20',
-            'description' => 'nullable|string',
+            'description' => 'nullable|string|max:1000',
             'max_booking_places' => 'nullable|integer|min:1',
             'working_hours' => 'array',
         ]);
