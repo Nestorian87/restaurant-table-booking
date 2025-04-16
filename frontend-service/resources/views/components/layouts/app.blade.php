@@ -248,7 +248,7 @@
             forceTLS: true,
             encrypted: true,
             enabledTransports: ['ws', 'wss'],
-            path: '/ws',
+            wsPath: '/ws',
             authEndpoint: '{{ env('WEBSOCKETS_BASE_URL') }}/broadcasting/auth',
             auth: {
                 headers: {
