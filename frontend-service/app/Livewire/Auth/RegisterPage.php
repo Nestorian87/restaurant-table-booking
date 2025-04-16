@@ -36,6 +36,15 @@ class RegisterPage extends BaseUserComponent
             return;
         }
 
+       if (strlen($this->password) < 6) {
+            $this->dispatch('swal:show', [
+                'type' => 'warning',
+                'title' => __('common.error'),
+                'text' => __('auth.password_too_short'),
+            ]);
+            return;
+        }
+
         $result = $this->repository->register($this->name, $this->surname, $this->email, $this->password);
         $this->handleApiResult($result, onSuccess: function ($data) {
             Cookie::queue('user_token', $data['access_token'], 60 * 24);
