@@ -49,6 +49,7 @@
                             :required="!empty($password_confirmation)"
                             modelLive="password"
                             maxlength="100"
+                            minlength="6"
                         />
                     </div>
                     <div class="col-12">
@@ -65,6 +66,7 @@
                             :required="!empty($password)"
                             modelLive="password_confirmation"
                             maxlength="100"
+                            minlength="6"
                         />
                     </div>
 

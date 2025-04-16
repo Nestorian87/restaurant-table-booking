@@ -18,4 +18,5 @@ return [
     'chat_with_user' => 'Chat with :name :surname',
     'new_message' => 'New message',
     'messages' => 'Messages',
+    'please_select_option' => 'Please select option',
 ];

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Enums\UserErrorCode;
 use App\Http\Controllers\Controller;
 use App\Services\RabbitMQPublisher;
 use Illuminate\Http\Request;

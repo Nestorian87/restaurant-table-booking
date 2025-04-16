@@ -110,7 +110,7 @@
                     @endforeach
                 </select>
 
-                <input type="number" class="form-control w-25 rounded-3" wire:model="newTableCount" min="1"
+                <input type="number" class="form-control w-25 rounded-3" wire:model="newTableCount" min="1" max="100"
                        placeholder="{{ __('bookings.count') }}" required>
 
                 <x-ui.button-green as="button" wire:click="addTableType"> {{ __('bookings.add') }}</x-ui.button-green>

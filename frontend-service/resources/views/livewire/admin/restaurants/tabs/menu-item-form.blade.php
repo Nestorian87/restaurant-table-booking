@@ -22,7 +22,7 @@
                    style="z-index: 10;">
                 <i class="bi bi-upload"></i>
             </label>
-            <input type="file" id="photo" wire:model="photo" class="d-none"/>
+            <input type="file" id="photo" wire:model="photo" accept="image/*" class="d-none"/>
         </div>
     </div>
 
@@ -43,6 +43,7 @@
                 model="price"
                 type="number"
                 min="1"
+                max="10000"
                 required
             />
         </div>
@@ -65,7 +66,6 @@
             @enderror
         </div>
 
-        {{-- Ряд 3: Категорія + Обʼєм + Одиниця виміру --}}
         <div class="col-md-6">
             <x-ui.select
                 name="menu_category_id"
@@ -86,8 +86,8 @@
                 label="{{ __('admin.volume') }}"
                 model="volume"
                 type="number"
-                step="0.01"
                 min="1"
+                max="10000"
                 required
             />
         </div>

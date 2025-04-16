@@ -7,6 +7,7 @@ use App\Livewire\Base\BaseUserComponent;
 use App\Models\TableType;
 use App\Repositories\User\BookingUserRepository;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\On;
 
@@ -22,7 +23,7 @@ class RestaurantBookingForm extends BaseUserComponent
     public array $availableTableTypes = [];
 
     public ?int $newTableTypeId = null;
-    public int $newTableCount = 1;
+    public $newTableCount = 1;
 
     public string $timezone = 'UTC';
 
@@ -55,7 +56,17 @@ class RestaurantBookingForm extends BaseUserComponent
 
     public function addTableType(): void
     {
-        if (!$this->newTableTypeId || $this->newTableCount < 1) return;
+        if (str_contains($this->newTableCount, 'e') ||
+            str_contains($this->newTableCount, '.') ||
+            str_contains($this->newTableCount, ',') ||
+            !$this->newTableTypeId || $this->newTableCount < 1) {
+            $this->dispatch('swal:show', [
+                'type' => 'error',
+                'title' => __('common.error'),
+                'text' => __('bookings.invalid_table_count')
+            ]);
+            return;
+        }
 
         if (in_array($this->newTableTypeId, array_column($this->tables, 'type_id'))) return;
 

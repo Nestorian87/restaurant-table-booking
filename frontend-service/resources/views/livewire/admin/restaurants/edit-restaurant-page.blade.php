@@ -1,4 +1,9 @@
 <div class="container">
+    <style>
+        .list-group-item {
+            cursor: pointer;
+        }
+    </style>
     @include('components.layouts.partials.admin-header')
     <div class="row mt-4">
         <div class="col-md-3">

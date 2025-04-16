@@ -67,7 +67,7 @@
 
                                     <div class="message-content p-3 rounded shadow-sm"
                                          style="max-width: 70%; background-color: {{ $bgColor }}; color: {{ $textColor }};">
-                                        <div>{{ $message['content'] }}</div>
+                                        <div style="line-break: anywhere;">{{ $message['content'] }}</div>
                                         <div class="text-muted small text-end mt-1">
                                             {{ Carbon::parse($message['created_at'])->timezone($timezone)->format('H:i') }}
                                         </div>
@@ -89,6 +89,7 @@
                                 placeholder="@lang('common.type_your_message')"
                                 rows="1"
                                 style="resize: none; min-height: 38px; max-height: 150px; overflow-y: auto;"
+                                maxlength="1000"
                                 @keydown.enter.prevent="
                                     if ($event.ctrlKey || $event.metaKey) {
                                         msg += '\n';

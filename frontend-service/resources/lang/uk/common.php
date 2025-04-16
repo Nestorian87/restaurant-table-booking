@@ -17,4 +17,5 @@ return [
     'chat_with_user' => 'Чат з :name :surname',
     'new_message' => 'Нове повідомлення',
     'messages' => 'Повідомлення',
+    'please_select_option' => 'Будь ласка, оберіть варіант',
 ];

@@ -66,4 +66,5 @@ return [
     'history' => 'Booking history',
     'confirm_cancel' => 'Are you sure you want to cancel this booking?',
     'cancelled' => 'Booking successfully cancelled',
+    'invalid_table_count' => 'Invalid table count',
 ];
