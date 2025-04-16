@@ -17,6 +17,7 @@ class BookingsTab extends BaseAdminComponent
     public string $status = '';
     public string $sortBy = 'start_time';
     public string $sortDir = 'desc';
+    public string $timezone = 'UTC';
     private RestaurantAdminRepository $repository;
 
     public function boot(RestaurantAdminRepository $repository)
@@ -100,6 +101,12 @@ class BookingsTab extends BaseAdminComponent
                 ]);
             }
         );
+    }
+
+    #[On('user-timezone')]
+    public function setUserTimezone($timezone)
+    {
+        $this->timezone = $timezone;
     }
 
     public function render()

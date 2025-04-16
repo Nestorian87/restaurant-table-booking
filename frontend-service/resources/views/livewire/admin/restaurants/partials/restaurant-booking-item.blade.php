@@ -6,9 +6,9 @@
             <div class="d-flex justify-content-between align-items-center mb-2">
                 <h6 class="mb-0">
                     <i class="bi bi-calendar-event me-1 text-success"></i>
-                    {{ Carbon::parse($booking['start_time'])->translatedFormat('d F Y, H:i') }}
+                    {{ Carbon::parse($booking['start_time'])->timezone($timezone)->translatedFormat('d F Y, H:i') }}
                     →
-                    {{ Carbon::parse($booking['end_time'])->translatedFormat('H:i') }}
+                    {{ Carbon::parse($booking['end_time'])->timezone($timezone)->translatedFormat('H:i') }}
                 </h6>
                 <span class="badge
                 @if($booking['status'] === 'confirmed') bg-success
@@ -52,7 +52,7 @@
                 </div>
             @endif
 
-            @if($booking['status'] === 'confirmed')
+            @if($booking['status'] === 'confirmed' && Carbon::now()->timezone($timezone)->lt(Carbon::parse($booking['end_time'])->timezone($timezone)))
                 <x-ui.button-red size="sm" class="mt-3" wire:click="cancel" padding="">
                     {{ __('bookings.cancel_booking') }}
                 </x-ui.button-red>

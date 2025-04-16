@@ -8,6 +8,7 @@ class RestaurantBookingItem extends Component
 {
     public array $booking;
     public int $restaurantId;
+    public string $timezone;
     public function cancel()
     {
         $this->dispatch('booking:cancel', $this->booking['id']);

@@ -48,6 +48,7 @@
                 :booking="$booking"
                 :restaurant-id="$restaurantId"
                 :key="$booking['id']"
+                :timezone="$timezone"
             />
         @endforeach
 
@@ -60,3 +61,9 @@
         @endif
     </div>
 </div>
+<script>
+    document.addEventListener('livewire:initialized', () => {
+        const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        Livewire.dispatch('user-timezone', {timezone});
+    });
+</script>
