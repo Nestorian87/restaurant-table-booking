@@ -11,6 +11,7 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
     )
+    ->withMiddleware(function (Middleware $middleware) { $middleware->trustProxies('*'); })
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->appendToGroup('web', SetLocale::class);
     })
