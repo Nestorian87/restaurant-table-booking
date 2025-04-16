@@ -49,5 +49,6 @@ return [
     'establishments' => 'Заклади',
     'admin' => 'Адміністратор',
     'chats' => 'Чати',
+    'menu_item_confirm_delete' => 'Ви впевнені, що хочете видалити цю страву?',
 ];
 

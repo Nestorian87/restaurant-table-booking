@@ -50,4 +50,5 @@ return [
     'establishments' => 'Establishments',
     'admin' => 'Admin',
     'chats' => 'Chats',
+    'menu_item_confirm_delete' => 'Are you sure you want to delete this dish?',
 ];
