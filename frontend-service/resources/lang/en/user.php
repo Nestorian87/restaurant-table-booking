@@ -9,4 +9,5 @@ return [
     'establishments' => 'Establishments',
     'bookings' => 'Bookings',
     'chat' => 'Chat',
+    'profile_updated' => 'Profile updated successfully',
 ];

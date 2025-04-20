@@ -56,8 +56,7 @@ class UserProfilePage extends BaseUserComponent
         $this->handleApiResult($result, onSuccess: function ($data) {
             $this->dispatch('swal:show', [
                 'type' => 'success',
-                'title' => __('common.success'),
-                'text' => __('user.profile_updated'),
+                'title' => __('user.profile_updated')
             ]);
         }, onFailure: function (ApiResult $result) {
             $error = UserErrorCode::tryFrom($result->errorCode ?? null);

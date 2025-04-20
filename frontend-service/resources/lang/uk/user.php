@@ -9,4 +9,5 @@ return [
     'establishments' => 'Заклади',
     'bookings' => 'Бронювання',
     'chat' => 'Чат',
+    'profile_updated' => 'Профіль успішно оновлено',
 ];
