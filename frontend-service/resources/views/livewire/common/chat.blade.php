@@ -33,7 +33,7 @@
                 >
 
 
-                @if($pagination['current_page'] < $pagination['last_page'])
+                    @if($pagination['current_page'] < $pagination['last_page'])
                         <div x-ref="sentinel" style="height: 1px;"></div>
                     @endif
 

@@ -138,21 +138,6 @@
         });
     });
 
-    function getCookie(name) {
-        let nameEq = name + "=";
-        let cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            let c = cookies[i];
-            while (c.charAt(0) === ' ') {
-                c = c.substring(1, c.length);
-            }
-            if (c.indexOf(nameEq) === 0) {
-                return c.substring(nameEq.length, c.length);
-            }
-        }
-        return null;
-    }
-
     function getUserIdFromToken(token) {
         try {
             const payload = token.split('.')[1];
