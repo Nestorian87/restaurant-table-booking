@@ -10,6 +10,6 @@
         :isAdmin="true"
         :userName="$userName"
         :userSurname="$userSurname"
-        :key="'chat-'.$chatId.'-'.count($messages) ?? 'initial'"
+        :key="'chat-'.$chatId.'-'.count($messages) . $timezone ?? 'initial'"
     />
 </div>
