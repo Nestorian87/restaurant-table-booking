@@ -8,17 +8,30 @@ TablyTime is a modular restaurant booking platform developed as part of a univer
 
 ## Features
 
-- Backend and frontend separation
-- Multilingual support (Ukrainian & English)
-- User authentication with role-based access control (RBAC)
-- User profile editing
-- Laravel Blade templating
-- Full microservice backend architecture
-- API Gateway between services and frontend
-- Frontend built with Livewire components and reactive updates
-- Modern, intuitive UI for real restaurant booking workflows
+- **General**
+  - Backend and frontend separation
+  - Multilingual support (Ukrainian & English)
+  - User authentication with role-based access control (RBAC)
+  - User profile editing
+  - Laravel Blade templating
+  - Microservice backend architecture
+  - API Gateway between services and frontend
+  - Frontend built with Livewire components and reactive updates
+  - Modern, intuitive UI for real restaurant booking workflows
 
----
+- **User Features**
+  - View list of available restaurants
+  - View individual restaurant details and menu
+  - Book tables at restaurants
+  - View personal booking history
+  - Leave reviews for visited restaurants
+  - Live chat with support team
+
+- **Admin Features**
+  - Create, read, update, delete (CRUD) restaurants
+  - Create, read, update, delete (CRUD) restaurant menus
+  - View list of bookings per restaurant
+  - Live chat with users
 
 ## Architecture Overview
 
